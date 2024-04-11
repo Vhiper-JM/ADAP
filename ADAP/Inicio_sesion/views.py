@@ -33,3 +33,9 @@ def postlogin(request):
         return render(request, 'conexEXI.html', {'email': email})
     except:
         return render(request, 'TempLogin.html', {'error': 'Credenciales incorrectas'})
+
+def signin(request):
+    return render(request, 'SignUp.html')
+
+def signin_business(request):
+    return render(request, 'Company_SignUp.html')
