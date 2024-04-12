@@ -24,3 +24,10 @@ img {
     text-align: start;
 }
 
+.form-col-12#user-group::before#user-group{
+    content: "\f007";
+}
+
+.form-group#contrasena-group::before{
+    content: "\f023";
+}

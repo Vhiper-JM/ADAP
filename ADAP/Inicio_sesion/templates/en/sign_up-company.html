@@ -1,70 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>ADAP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous" />
     <link rel="icon" href="">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> 
 </head>
 
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="../static/images/imagen6.png" alt=""
-                style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
+            <img src="img/imagen6.png" alt="" style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" >
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
                     <a href="Empresa_Registro.html">
-                        <img src="../static/images/flag.png" alt="" class="rounded float-end"
-                            style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        <img src="img/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
                     <a href="Company_SignUp.html">
-                        <img src="../static/images/united-kingdom.png" class="rounded float-end" alt=""
-                            style="width: 5%;">
+                        <img src="img/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
                     </a>
                 </div>
             </div>
             <div class="container text-center">
-                <img src="../static/images/LogoU.png" alt="LogoU">
-                <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you not a company? You can
-                    register as a user here:
-                    <a href="SignUp.html">Sign Up ADAP </a>
+                <img src="img/LogoU.png" alt="LogoU">
+                <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you not a company? You can register as a user here: 
+                    <a href="SignUp.html">Sign Up ADAP </a> 
                 </h2>
-            </div>
+            </div>    
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form action="/createB/" class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
-                        {% csrf_token %}
+                    <form style="width: 100%;">
                         <div class="mb-3 text-start">
-                            <label for="companyName" class="form-label">Company Name</label>
-                            <input type="text" id="companyName" class="form-control" name="companyName"
-                                placeholder="Enter your company name">
+                            <label for="" class="form-label">Company Name </label>
+                            <input type="text" id="" class="form-control" name="" placeholder="">         
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="dateOfBirth" class="form-label">Date of Foundation</label>
-                            <input type="date" lang="es" id="dateFoundation" class="form-control" name="dateFoundation"
-                                placeholder="Select date of foundation">
+                            <label for="" class="form-label">Date of Foundation</label>
+                            <input type="date" lang="es" id="" class="form-control" name="" placeholder="">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" id="email" class="form-control" name="email" placeholder="Enter your email">
+                            <label for="" class="form-label">Email </label>
+                            <input type="text" id="" class="form-control" name="" placeholder="">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" id="phone" class="form-control" name="phone" placeholder="Enter your phone number">
+                            <label for="" class="form-label">Phone </label>
+                            <input type="text" id="" class="form-control" name="" placeholder="">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="country" class="form-label">Country of Residence</label>
-                            <select id="country" class="form-select" name="country">
+                            <label for="" class="form-label">Country of Residence</label>
+                            <select id="" class="form-select" name="">
                                 <option value="" disabled selected>Select your country of residence</option>
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Albania">Albania</option>
@@ -156,23 +150,20 @@
                                 <option value="Yemen">Yemen</option>
                                 <option value="Zimbabwe">Zimbabwe</option>
                             </select>
-                            <div class="mb-3 text-start">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
-                            </div>
                         </div>
-                        </div>
-                        <div class="mb-3 text-center">
-                            <input class="form-check-control" type="checkbox" id="terms" name="terms" value="">
-                            <label class="form-check-label" for="terms">I have read and accept the Terms and Conditions</label>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <input type="submit" id="registerBtn" name="registerBtn" value="Register" style="background-color: #55CC93;">
-                        </div>
-                    </form>
+                    <div class="mb-3 text-center">
+                        <input class="form-check-control" type="checkbox" value="" id="">
+                        <label class="form-check-label" for="">I have read and accept the Terms and Conditions</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" name="" value="Register" style="background-color: #55CC93;">
+                    </div>
+                    
+                </div> 
+                <label for="btn-mensaje" class="cerrar-mensaje"></label>
+                </form>
             </div>
         </div>
     </div>
 </body>
-
 </html>

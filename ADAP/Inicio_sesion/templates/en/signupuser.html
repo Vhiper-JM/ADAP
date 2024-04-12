@@ -18,43 +18,42 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="../static/images/imagen6.png" alt="" style="width: 100%; height: 950px; margin-left:0%; margin-right: 0%;">
+            <img src="img/imagen6.png" alt="" style="width: 100%; height: 950px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8" >
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
                     <a href="Registro.html">
-                        <img src="../static/images/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        <img src="img/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
                     <a href="SignUp.html">
-                        <img src="../static/images/img/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
+                        <img src="img/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
                     </a>
                 </div>
             </div>
             <div class="container text-center">
-                <img src="../static/images/LogoU.png" alt="LogoU">
+                <img src="img/LogoU.png" alt="LogoU">
                 <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you a company? You can register as a company here: 
-                    <a href="/signin_business/">ADAP company registration</a> 
+                    <a href="Company_SignUp.html">ADAP company registration</a> 
                 </h2>
             </div>    
-            <form action = "/create/" class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
-                {% csrf_token %}
+            <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;">
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Names </label>
-                        <input type="text" id="" class="form-control" name="name" placeholder="">         
+                        <input type="text" id="" class="form-control" name="" placeholder="">         
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Surnames </label>
-                        <input type="text" id="" class="form-control" name="surname" placeholder="">         
+                        <input type="text" id="" class="form-control" name="" placeholder="">         
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">ID </label>
-                        <input type="text" id="" class="form-control" name="id" placeholder="">
+                        <input type="text" id="" class="form-control" name="" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Gender </label>
-                        <select id="" class="form-select" name="gender">
+                        <select id="" class="form-select" name="">
                             <option value="" disabled selected>Select your gender</option>
                             <option value="">Male</option>
                             <option value="">Female</option>
@@ -63,7 +62,7 @@
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Nationality </label>
-                            <select id="" class="form-select" name="nationality">
+                            <select id="" class="form-select" name="">
                                 <option value=""disabled selected>Select your nationality </option>
                                 <option value="">Afghan </option>
                                 <option value="">Albanian </option>
@@ -158,13 +157,13 @@
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Phone </label>
-                        <input type="text" id="" class="form-control" name="phone" placeholder="">
+                        <input type="text" id="" class="form-control" name="" placeholder="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Country of Residence</label>
-                        <select id="" class="form-select" name="country">
+                        <select id="" class="form-select" name="">
                             <option value="" disabled selected>Select your country of residence</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -258,20 +257,16 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label"> Date of Birth </label>
-                        <input type="date" id="" class="form-control" name="date" placeholder="">
-                    </div>
-                    <div class="mb-3 text-start">
-                        <label for="" class="form-label">E-mail</label>
-                        <input type="text" id="" class="form-control" name="email" placeholder="">
+                        <label for="" class="form-label">Birth date </label>
+                        <input type="date" id="" class="form-control" name="" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Company</label>
-                        <input type="text" id="" class="form-control" name="company" placeholder="">
+                        <input type="text" id="" class="form-control" name="" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Position in the company</label>
-                        <select id="" class="form-select" name="position">
+                        <select id="" class="form-select" name="">
                             <option value="" disabled selected>Select your position</option>
                             <option value="CEO">CEO (Chief Executive Officer)</option>
                             <option value="COO">COO (Chief Operating Officer)</option>
@@ -293,20 +288,16 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <input class="form-check-control" type="checkbox" value="" id="" name="entrepreneur">
+                        <input class="form-check-control" type="checkbox" value="" id="">
                         <label class="form-check-label" for="">Are you an entrepreneur?</label>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Entrepreneurship</label>
-                        <input type="text" id="" class="form-control" name="entrepreneurship" placeholder="">
-                    </div>
-                    <div class="mb-3 text-start">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
+                        <input type="text" id="" class="form-control" name="" placeholder="">
                     </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <input class="form-check-control" type="checkbox" value="" id="" name="conditions">
+                    <input class="form-check-control" type="checkbox" value="" id="">
                     <label class="form-check-label" for="">I have read and accept the Terms and Conditions</label>
                 </div>
                 <div class="d-flex justify-content-center">
