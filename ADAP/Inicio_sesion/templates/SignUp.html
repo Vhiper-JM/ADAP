@@ -40,29 +40,29 @@
             <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;">
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Names </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">         
+                        <label for="names" class="form-label">Names</label>
+                        <input type="text" id="names" class="form-control" name="names" placeholder="Enter your Name(s)">         
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Surnames </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">         
+                        <label for="surnames" class="form-label">Surnames</label>
+                        <input type="text" id="surnames" class="form-control" name="surnames" placeholder="Enter your last names">         
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">ID </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="idNumber" class="form-label">ID</label>
+                        <input type="text" id="idNumber" class="form-control" name="idNumber" placeholder="Enter your ID number">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Gender </label>
                         <select id="" class="form-select" name="">
                             <option value="" disabled selected>Select your gender</option>
-                            <option value="">Male</option>
-                            <option value="">Female</option>
-                            <option value="">Other</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Nationality </label>
-                            <select id="" class="form-select" name="">
+                        <label for="nationality" class="form-label">Nationality </label>
+                            <select id="nationality" class="form-select" name="nationality">
                                 <option value=""disabled selected>Select your nationality </option>
                                 <option value="">Afghan </option>
                                 <option value="">Albanian </option>
@@ -156,14 +156,14 @@
                             </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Phone </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="phone" class="form-label">Phone </label>
+                        <input type="text" id="phone" class="form-control" name="phone" placeholder="Enter your phone number">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Country of Residence</label>
-                        <select id="" class="form-select" name="">
+                        <label for="country" class="form-label">Country of Residence</label>
+                        <select id="country" class="form-select" name="country">
                             <option value="" disabled selected>Select your country of residence</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -257,16 +257,16 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Birth date </label>
-                        <input type="date" id="" class="form-control" name="" placeholder="">
+                        <label for="dateOfBirth" class="form-label">Dato of Birth </label>
+                        <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" placeholder="Enter your date of birth">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Company</label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="company" class="form-label">Company</label>
+                        <input type="text" id="company" class="form-control" name="company" placeholder="Enter your Compay Name">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Position in the company</label>
-                        <select id="" class="form-select" name="">
+                        <label for="position" class="form-label">Position in the company</label>
+                        <select id="position" class="form-select" name="position">
                             <option value="" disabled selected>Select your position</option>
                             <option value="CEO">CEO (Chief Executive Officer)</option>
                             <option value="COO">COO (Chief Operating Officer)</option>
@@ -288,13 +288,17 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <input class="form-check-control" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Are you an entrepreneur?</label>
+                        <input class="form-check-control" type="checkbox" id="entrepreneur" value="">
+                        <label class="form-check-label" for="entrepreneur">Are you an entrepreneur?</label>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Entrepreneurship</label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="entrepreneurship" class="form-label">Entrepreneurship</label>
+                        <input type="text" id="entrepreneurship" class="form-control" name="entrepreneurship" placeholder="Enter your entrepreneurship details">
                     </div>
+                    <div class="mb-3 text-start">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password">
+                    </div>                  
                 </div>
                 <div class="mb-3 text-center">
                     <input class="form-check-control" type="checkbox" value="" id="">
