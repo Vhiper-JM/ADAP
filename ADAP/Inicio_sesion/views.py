@@ -56,6 +56,7 @@ def create_user(request):
     position = request.POST.get('position')
     entrepreneur = request.POST.get('entrepreneur')
     entrepreneurship = request.POST.get('entrepreneurship')
+    password = request.POST.get('password')
 
     # Create a dictionary with user data
     user_data = {
@@ -71,27 +72,28 @@ def create_user(request):
         'company': company,
         'position': position,
         'entrepreneur': entrepreneur,
-        'entrepreneurship': entrepreneurship
+        'entrepreneurship': entrepreneurship,
+        'password': password
     }
 
 
     try:
-        print(user_data)
-        # Reference to the Firebase Realtime Database
-        print(refDB)
+        # print(user_data)
+        # # Reference to the Firebase Realtime Database
+        # print(refDB)
         
         # Retrieve user data from Firebase
         user_data_dict = refDB.child('Usuario').get()  # Retrieve JSON data as a string
-        print(user_data_dict)
+        # print(user_data_dict)
         
         email_exists = False
         # Check if the email already exists in users data
         for key, data in user_data_dict.items():  # Loop through dictionary items correctly
             # Imprimir key y data
-            print(f'Key: {key}, Data: {data}')
+            # print(f'Key: {key}, Data: {data}')
             if key == 'email' and data == email:
                 # Si el email ya existe, imprmir la siguiente linea
-                print(f'Email ya existe: {email}')
+                # print(f'Email ya existe: {email}')
                 email_exists = True
                 break 
 
@@ -106,42 +108,27 @@ def create_user(request):
         return render(request, 'TempLogin.html', {'error': f'Error: {e}'})
 
 
-def create_user2(request):
-    name = request.POST.get('name')
-    surname = request.POST.get('surname')
-    idUser = request.POST.get('id')
-    gender = request.POST.get('gender')
-    nationality = request.POST.get('nationality')
+def create_userB(request):
+    company_name = request.POST.get('companyName')
+    date_of_foundation = request.POST.get('dateFoundation')
+    email = request.POST.get('email')
     phone = request.POST.get('phone')
     country = request.POST.get('country')
-    date = request.POST.get('date')
-    email = request.POST.get('email')
-    company = request.POST.get('company')
-    position = request.POST.get('position')
-    entrepreneur = request.POST.get('entrepreneur')
-    entrepreneurship = request.POST.get('entrepreneurship')
+    password = request.POST.get('password')
 
     # Create a dictionary with user data
     user_data = {
-        'name': name,
-        'surname': surname,
-        'idUser': idUser,
-        'gender': gender,
-        'nationality': nationality,
+        'companyName': company_name,
+        'dateOfFoundation': date_of_foundation,
+        'email': email,
         'phone': phone,
         'country': country,
-        'date': date,
-        'email': email,
-        'company': company,
-        'position': position,
-        'entrepreneur': entrepreneur,
-        'entrepreneurship': entrepreneurship
+        'password': password,
     }
 
     try:
         # Reference to the Firebase Realtime Database
-        users_ref = refDB.reference('Usuario')
-        users_ref.push(user_data)  # Use set() instead of push() if you want to overwrite existing data
+        refDB.reference('Empresa').push(user_data)  # Use set() instead of push() if you want to overwrite existing data
         return render(request, 'TempLogin.html', {'error': 'Registro exitoso'})  # Redirect to a success page
     except Exception as e:
         return render(request, 'TempLogin.html', {'error': f'Error: {e}'})  # Handle any errors during the operation
