@@ -81,7 +81,7 @@ def create_user(request):
     nationality = request.POST.get('nationality')
     phone = request.POST.get('phone')
     country = request.POST.get('country')
-    date = request.POST.get('date')
+    birthdate = request.POST.get('birthdate')
     email = request.POST.get('email')
     company = request.POST.get('company')
     position = request.POST.get('position')
@@ -98,7 +98,7 @@ def create_user(request):
         'nationality': nationality,
         'phone': phone,
         'country': country,
-        'date': date,
+        'birthdate': birthdate,
         'email': email,
         'company': company,
         'position': position,

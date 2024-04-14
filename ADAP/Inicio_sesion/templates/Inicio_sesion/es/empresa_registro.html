@@ -42,24 +42,24 @@
                     <form style="width: 100%;">
                         {% csrf_token %}
                         <div class="mb-3 text-start">
-                            <label for="" class="form-label">Nombre de la Empresa </label>
-                            <input type="text" id="" class="form-control" name="" placeholder="">         
+                            <label for="companyName" class="form-label">Nombre de la Empresa </label>
+                            <input type="text" id="companyName" class="form-control" name="companyName" placeholder="" required>         
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="" class="form-label">Fecha de fundación</label>
-                            <input type="date" lang="es" id="" class="form-control" name="" placeholder="">
+                            <label for="dateFoundation" class="form-label">Fecha de fundación</label>
+                            <input type="date" lang="es" id="dateFoundation" class="form-control" name="dateFoundation" placeholder="" required>
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="" class="form-label">Correo </label>
-                            <input type="text" id="" class="form-control" name="" placeholder="">
+                            <label for="email" class="form-label">Correo </label>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="" required>
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="" class="form-label">Teléfono </label>
-                            <input type="text" id="" class="form-control" name="" placeholder="">
+                            <label for="phone" class="form-label">Teléfono </label>
+                            <input type="text" id="phone" class="form-control" name="phone" placeholder="" required>
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="" class="form-label">País de Residencia </label>
-                            <select id="" class="form-select" name="">
+                            <label for="country" class="form-label">País de Residencia </label>
+                            <select id="country" class="form-select" name="country" required>
                                 <option value="" disabled selected>Selecciona tu país de residencia</option>
                                 <option value="Afganistán">Afganistán</option>
                                 <option value="Albania">Albania</option>
@@ -153,7 +153,7 @@
                             </select>
                         </div>
                     <div class="mb-3 text-center">
-                        <input class="form-check-control" type="checkbox" value="" id="">
+                        <input class="form-check-control" type="checkbox" value="" id="" required>
                         <label class="form-check-label" for="">He Leído y Acepto los Términos y Condiciones</label>
                     </div>
                     <div class="d-flex justify-content-center">

@@ -41,29 +41,29 @@
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Names </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">         
+                        <label for="name" class="form-label">Names </label>
+                        <input type="text" id="name" class="form-control" name="name" placeholder="" required>         
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Surnames </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">         
+                        <label for="surname" class="form-label">Surnames </label>
+                        <input type="text" id="surname" class="form-control" name="surname" placeholder="" required>         
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">ID </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="id" class="form-label">ID </label>
+                        <input type="text" id="id" class="form-control" name="id" placeholder="" required>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Gender </label>
-                        <select id="" class="form-select" name="">
+                        <label for="gender" class="form-label">Gender </label>
+                        <select id="gender" class="form-select" name="gender" required>
                             <option value="" disabled selected>Select your gender</option>
-                            <option value="">Male</option>
-                            <option value="">Female</option>
-                            <option value="">Other</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Nationality </label>
-                            <select id="" class="form-select" name="">
+                        <label for="nationality" class="form-label">Nationality </label>
+                            <select id="nationality" class="form-select" name="nationality" required>
                                 <option value=""disabled selected>Select your nationality </option>
                                 <option value="">Afghan </option>
                                 <option value="">Albanian </option>
@@ -157,14 +157,14 @@
                             </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Phone </label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="phone" class="form-label">Phone </label>
+                        <input type="text" id="phone" class="form-control" name="phone" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Country of Residence</label>
-                        <select id="" class="form-select" name="">
+                        <label for="country" class="form-label">Country of Residence</label>
+                        <select id="country" class="form-select" name="country" required>
                             <option value="" disabled selected>Select your country of residence</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -258,16 +258,16 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Birth date </label>
-                        <input type="date" id="" class="form-control" name="" placeholder="">
+                        <label for="birthdate" class="form-label">Birth date </label>
+                        <input type="date" id="birthdate" class="form-control" name="birthdate" placeholder="" required>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Company</label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="company" class="form-label">Company</label>
+                        <input type="text" id="company" class="form-control" name="company" placeholder="" required>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Position in the company</label>
-                        <select id="" class="form-select" name="">
+                        <label for="position" class="form-label">Position in the company</label>
+                        <select id="position" class="form-select" name="position" required>
                             <option value="" disabled selected>Select your position</option>
                             <option value="CEO">CEO (Chief Executive Officer)</option>
                             <option value="COO">COO (Chief Operating Officer)</option>
@@ -289,17 +289,17 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <input class="form-check-control" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Are you an entrepreneur?</label>
+                        <input class="form-check-control" type="checkbox" value="entrepreneur" id="entrepreneur">
+                        <label class="form-check-label" for="entrepreneur">Are you an entrepreneur?</label>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Entrepreneurship</label>
-                        <input type="text" id="" class="form-control" name="" placeholder="">
+                        <label for="entrepreneurship" class="form-label">Entrepreneurship</label>
+                        <input type="text" id="entrepreneurship" class="form-control" name="entrepreneurship" placeholder="">
                     </div>
                 </div>
                 <div class="mb-3 text-center">
                     <input class="form-check-control" type="checkbox" value="" id="">
-                    <label class="form-check-label" for="">I have read and accept the Terms and Conditions</label>
+                    <label class="form-check-label" for="" required>I have read and accept the Terms and Conditions</label>
                 </div>
                 <div class="d-flex justify-content-center">
                     <input type="submit" name="" value="Register" style="background-color: #55CC93;">
