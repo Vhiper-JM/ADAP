@@ -8,8 +8,6 @@ import pyrebase
 # archivos locales
 from .ConexionDB import refDB  # Importing db reference from ConexionDB.py
 
-app_name = 'Inicio_sesion'
-
 # Pyrebase initialization for user authentication
 config = {
   "apiKey": "AIzaSyCkeIBWE--pQhFUWgJ0ownE_le1ixzJBxw",

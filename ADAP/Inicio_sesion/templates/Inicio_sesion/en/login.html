@@ -27,7 +27,7 @@
             <div class="row justify-content-center">
                 <h2 class="text-shadow" style="margin-top: 20px;"> Log In</h2>
                 <div class="col-md-6">
-                    <form class="col-12" action="{% url 'postlogin' %}" method="post">
+                    <form class="col-12" action="{% url 'Inicio_sesion:postlogin' %}" method="post">
                         {% csrf_token %}
                         <div class="mb-3 text-start">
                             <div class="input-group">
@@ -50,16 +50,16 @@
                             <a href="new_Password.html">Forgot Password?</a>
                         </div>
                         <div class="col-md-6 text-center">
-                            <a href="{% url 'signup' 'en' %}">Create an accuont?</a>
+                            <a href="{% url 'Inicio_sesion:signup' 'en' %}">Create an accuont?</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flags-container">
-                <a href="{% url 'login' 'es' %}">
+                <a href="{% url 'Inicio_sesion:login' 'es' %}">
                     <img src="../../../static/images/flag.png" alt="" class="rounded" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                 </a>
-                <a href="{% url 'login' 'en' %}">
+                <a href="{% url 'Inicio_sesion:login' 'en' %}">
                     <img src="../../../static/images/united-kingdom.png" class="rounded" alt="" style="width: 5%;">
                 </a>
             </div>

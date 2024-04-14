@@ -23,10 +23,10 @@
         <div class="col-md-8" >
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
-                    <a href="{% url 'signup' 'es' %}">
+                    <a href="{% url 'Inicio_sesion:signup' 'es' %}">
                         <img src="../../../static/images/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
-                    <a href="{% url 'signup' 'en' %}">
+                    <a href="{% url 'Inicio_sesion:signup' 'en' %}">
                         <img src="../../../static/images/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
                     </a>
                 </div>
@@ -34,10 +34,11 @@
             <div class="container text-center">
                 <img src="../../../static/images/LogoU.png" alt="LogoU">
                 <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you a company? You can register as a company here: 
-                    <a href="{% url 'signup_business' 'en' %}">ADAP company registration</a> 
+                    <a href="{% url 'Inicio_sesion:signup_business' 'en' %}">ADAP company registration</a> 
                 </h2>
             </div>    
             <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;">
+                {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Names </label>

@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
+app_name = 'Inicio_sesion'
 
+urlpatterns = [
     path('', views.index, name='index'),
     path('<str:lang>/login', views.login, name='login'),
     path('postlogin/', views.postlogin, name='postlogin'),
