@@ -18,23 +18,23 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="img/imagen5.png" alt="" style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
+            <img src="../../../static/images/imagen5.png" alt="" style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8" >
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
-                    <a href="Empresa_Registro.html">
-                        <img src="img/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                    <a href="{% url 'signup_business' 'es' %}">
+                        <img src="../../../static/images/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
-                    <a href="Company_SignUp.html">
-                        <img src="img/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
+                    <a href="{% url 'signup_business' 'en' %}">
+                        <img src="../../../static/images/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
                     </a>
                 </div>
             </div>
             <div class="container text-center">
-                <img src="img/LogoU.png" alt="LogoU">
+                <img src="../../../static/images/LogoU.png" alt="LogoU">
                 <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">¿No eres empresa? Puedes registrarte como usuario aquí: 
-                    <a href="Registro.html">Registro ADAP </a> 
+                    <a href="{% url 'signup' 'es' %}">Registro ADAP </a> 
                 </h2>
             </div>    
             <div class="row justify-content-center">

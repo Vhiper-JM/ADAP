@@ -1,6 +1,11 @@
+# Django
+from django.http import Http404
+from django.http import HttpResponse
+from django.shortcuts import render
+# librerias adicionales
 import json
 import pyrebase
-from django.shortcuts import render
+# archivos locales
 from .ConexionDB import refDB  # Importing db reference from ConexionDB.py
 
 app_name = 'Inicio_sesion'
@@ -20,9 +25,22 @@ config = {
 firebase = pyrebase.initialize_app(config)
 autenticacion = firebase.auth()
 
+def index(request):
+    """
+    Muestra el inicio de la plataforma con el login en ingles
+    """
+    return render(request, "Inicio_sesion/en/login.html")
+
 # Recordar remplazar vew login OFICIAL
-def login(request):
-    return render(request, 'TempLogin.html')
+def login(request, lang):
+    """
+    Muestra el inicio de sesión según el idioma seleccionado
+    """
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/iniciarsesion.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/login.html')
 
 # view login
 def postlogin(request):
@@ -31,15 +49,30 @@ def postlogin(request):
 
     try:
         user = autenticacion.sign_in_with_email_and_password(email, password)
-        return render(request, 'conexEXI.html', {'email': email})
+        return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
     except:
-        return render(request, 'TempLogin.html', {'error': 'Credenciales incorrectas'})
+        return HttpResponse('Algo salio mal')
 
-def signin(request):
-    return render(request, 'SignUp.html')
+def signup(request, lang):
+    """
+    Muestra el formulario de registro segun el idioma dado
+    """
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/registrousuario.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/signupuser.html')
 
-def signin_business(request):
-    return render(request, 'Company_SignUp.html')
+def signup_business(request, lang):
+    """
+    Muestra el formulario de registro de empresa segun el idioma
+    """
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/empresa_registro.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/sign_up-company.html')
+
 
 # view create user
 def create_user(request):

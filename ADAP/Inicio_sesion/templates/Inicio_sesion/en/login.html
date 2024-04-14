@@ -19,48 +19,48 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="img/imagen5.png" alt="" style="width: 100%; height: 650px; margin-left:0%; margin-right: 0%;">
+            <img src="../../../static/images/imagen6.png" alt="" style="width: 100%; height: 650px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8" >
             <div class="container text-center">
-                <img src="img/LogoU.png" alt="LogoU">   
+                <img src="../../../static/images/LogoU.png" alt="LogoU">   
             <div class="row justify-content-center">
-                <h2 class="text-shadow" style="margin-top: 20px;"> Inicio Sesión </h2>
+                <h2 class="text-shadow" style="margin-top: 20px;"> Log In</h2>
                 <div class="col-md-6">
-                    <form class="col-12" action="" method="">
+                    <form class="col-12" action="{% url 'postlogin' %}" method="post">
+                        {% csrf_token %}
                         <div class="mb-3 text-start">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Correo electrónico" name="">
+                                <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
                         </div>
                         <div class="mb-3 text-start">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-lock icon"></i></span>
-                                <input type="password" class="form-control" placeholder="Contraseña" name="">
+                                <input type="password" class="form-control" placeholder="Password" name="password">
                             </div>
                         </div>
-                    </form>
                     <div class="d-flex justify-content-center">
-                        <input type="submit" name="" value="Iniciar Sesión" style="background-color: #55CC93;">
+                        <input type="submit" name="" value="Log In" style="background-color: #55CC93;">
                     </div>
                     </form>
                     <div class="row justify-content-center mt-3">
                         <div class="col-md-6 text-center">
-                            <a href="Recuperar_Contraseña.html">¿Olvidaste tu contraseña?</a>
+                            <a href="new_Password.html">Forgot Password?</a>
                         </div>
                         <div class="col-md-6 text-center">
-                            <a href="Recuperar_Contraseña.html">¿No tienes una cuenta?</a>
+                            <a href="{% url 'signup' 'en' %}">Create an accuont?</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flags-container">
-                <a href="IniciarSesion.html">
-                    <img src="img/flag.png" alt="" class="rounded" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                <a href="{% url 'login' 'es' %}">
+                    <img src="../../../static/images/flag.png" alt="" class="rounded" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                 </a>
-                <a href="LogIn.html">
-                    <img src="img/united-kingdom.png" class="rounded" alt="" style="width: 5%;">
+                <a href="{% url 'login' 'en' %}">
+                    <img src="../../../static/images/united-kingdom.png" class="rounded" alt="" style="width: 5%;">
                 </a>
             </div>
         </div>
