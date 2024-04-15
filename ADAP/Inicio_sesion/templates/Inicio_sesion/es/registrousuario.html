@@ -35,9 +35,9 @@
                 <img src="../../../static/images/LogoU.png" alt="LogoU">
                 <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">¿Eres empresa? Puedes registrarte como empresa aquí: 
                     <a href="{% url 'Inicio_sesion:signup_business' 'es' %}">Registro ADAP empresas</a> 
-                </h2>
+                </h2>2
             </div>    
-            <form  class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;">
+            <form  action="/register_user/"  class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
@@ -50,111 +50,111 @@
                     </div>
                     <div class="mb-3 text-start">
                         <label for="idUser" class="form-label">Identificación </label>
-                        <input type="text" id="idUser" class="form-control" name="idUser" placeholder="" required>
+                        <input type="text" id="idUser" class="form-control" name="id" placeholder="" required>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="gender" class="form-label">Género</label>
                         <select id="" class="form-select" name="gender" required>
                             <option value="" disabled selected>Seleccione su género</option>
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                            <option value="other">Otro</option>
+                            <option value="Male">Masculino</option>
+                            <option value="Female">Femenino</option>
+                            <option value="Other">Otro</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="nationality" class="form-label">Nacionalidad</label>
                             <select id="nationality" class="form-select" name="nationality" required>
-                                <option value="" disabled selected>Selecciona tu nacionalidad</option>
-                                <option value="">Afgano/a</option>
-                                <option value="">Albanés/a</option>
-                                <option value="">Alemán/a</option>
-                                <option value="">Argelino/a</option>
-                                <option value="">Argentino/a</option>
-                                <option value="">Australiano/a</option>
-                                <option value="">Austríaco/a</option>
-                                <option value="">Belga</option>
-                                <option value="">Beninés/a</option>
-                                <option value="">Boliviano/a</option>
-                                <option value="">Botsuano/a</option>
-                                <option value="">Brasileño/a</option>
-                                <option value="">Británico/a</option>
-                                <option value="">Camerunés/a</option>
-                                <option value="">Canadiense</option>
-                                <option value="">Checo/a</option>
-                                <option value="">Chileno/a</option>
-                                <option value="">Chino/a</option>
-                                <option value="">Colombiano/a</option>
-                                <option value="">Congoleño/a</option>
-                                <option value="">Costarricense</option>
-                                <option value="">Croata</option>
-                                <option value="">Cubano/a</option>
-                                <option value="">Danés/a</option>
-                                <option value="">Ecuatoriano/a</option>
-                                <option value="">Egipcio/a</option>
-                                <option value="">Español/a</option>
-                                <option value="">Estadounidense</option>
-                                <option value="">Eslovaco/a</option>
-                                <option value="">Esloveno/a</option>
-                                <option value="">Etíope</option>
-                                <option value="">Filipino/a</option>
-                                <option value="">Finlandés/a</option>
-                                <option value="">Francés/a</option>
-                                <option value="">Griego/a</option>
-                                <option value="">Guyanés/a</option>
-                                <option value="">Holandés/a</option>
-                                <option value="">Hondureño/a</option>
-                                <option value="">Húngaro/a</option>
-                                <option value="">Indio/a</option>                                
-                                <option value="">Iraní</option>
-                                <option value="">Iraquí</option>
-                                <option value="">Irlandés/a</option>
-                                <option value="">Islandés/a</option>
-                                <option value="">Israelí</option>
-                                <option value="">Italiano/a</option>
-                                <option value="">Jamaicano/a</option>
-                                <option value="">Japonés/a</option>
-                                <option value="">Keniano/a</option>
-                                <option value="">Letón/a</option>
-                                <option value="">Libanés/a</option>
-                                <option value="">Lituano/a</option>
-                                <option value="">Macedonio/a</option>
-                                <option value="">Maltés/a</option>
-                                <option value="">Marroquí</option>
-                                <option value="">Mexicano/a</option>
-                                <option value="">Monegasco/a</option>
-                                <option value="">Mongol/a</option>
-                                <option value="">Nepalí</option>
-                                <option value="">Neozelandés/a</option>
-                                <option value="">Nicaragüense</option>
-                                <option value="">Nigeriano/a</option>
-                                <option value="">Norcoreano/a</option>
-                                <option value="">Noruego/a</option>
-                                <option value="">Panameño/a</option>
-                                <option value="">Paraguayo/a</option>
-                                <option value="">Peruano/a</option>
-                                <option value="">Polaco/a</option>
-                                <option value="">Portugués/a</option>
-                                <option value="">Puertorriqueño/a</option>
-                                <option value="">Rumano/a</option>
-                                <option value="">Ruso/a</option>
-                                <option value="">Salvadoreño/a</option>
-                                <option value="">Serbio/a</option>
-                                <option value="">Singapurense</option>
-                                <option value="">Sirio/a</option>
-                                <option value="">Sudafricano/a</option>
-                                <option value="">Sueco/a</option>
-                                <option value="">Suizo/a</option>
-                                <option value="">Surcoreano/a</option>
-                                <option value="">Surinamés/a</option>
-                                <option value="">Tailandés/a</option>
-                                <option value="">Turco/a</option>
-                                <option value="">Ucraniano/a</option>
-                                <option value="">Uruguayo/a</option>
-                                <option value="">Venezolano/a</option>
-                                <option value="">Vietnamita</option>
-                                <option value="">Yemení</option>
-                                <option value="">Zimbabuense</option>
-                            </select>
+                                    <option value="" disabled selected>Selecciona tu nacionalidad</option>
+                                    <option value="Afgano">Afgano/a</option>
+                                    <option value="Albanés">Albanés/a</option>
+                                    <option value="Alemán">Alemán/a</option>
+                                    <option value="Argelino">Argelino/a</option>
+                                    <option value="Argentino">Argentino/a</option>
+                                    <option value="Australiano">Australiano/a</option>
+                                    <option value="Austríaco">Austríaco/a</option>
+                                    <option value="Belga">Belga</option>
+                                    <option value="Beninés">Beninés/a</option>
+                                    <option value="Boliviano">Boliviano/a</option>
+                                    <option value="Botsuano">Botsuano/a</option>
+                                    <option value="Brasileño">Brasileño/a</option>
+                                    <option value="Británico">Británico/a</option>
+                                    <option value="Camerunés">Camerunés/a</option>
+                                    <option value="Canadiense">Canadiense</option>
+                                    <option value="Checo">Checo/a</option>
+                                    <option value="Chileno">Chileno/a</option>
+                                    <option value="Chino">Chino/a</option>
+                                    <option value="Colombiano">Colombiano/a</option>
+                                    <option value="Congoleño">Congoleño/a</option>
+                                    <option value="Costarricense">Costarricense</option>
+                                    <option value="Croata">Croata</option>
+                                    <option value="Cubano">Cubano/a</option>
+                                    <option value="Danés">Danés/a</option>
+                                    <option value="Ecuatoriano">Ecuatoriano/a</option>
+                                    <option value="Egipcio">Egipcio/a</option>
+                                    <option value="Español">Español/a</option>
+                                    <option value="Estadounidense">Estadounidense</option>
+                                    <option value="Eslovaco">Eslovaco/a</option>
+                                    <option value="Esloveno">Esloveno/a</option>
+                                    <option value="Etíope">Etíope</option>
+                                    <option value="Filipino">Filipino/a</option>
+                                    <option value="Finlandés">Finlandés/a</option>
+                                    <option value="Francés">Francés/a</option>
+                                    <option value="Griego">Griego/a</option>
+                                    <option value="Guyanés">Guyanés/a</option>
+                                    <option value="Holandés">Holandés/a</option>
+                                    <option value="Hondureño">Hondureño/a</option>
+                                    <option value="Húngaro">Húngaro/a</option>
+                                    <option value="Indio">Indio/a</option>                                
+                                    <option value="Iraní">Iraní</option>
+                                    <option value="Iraquí">Iraquí</option>
+                                    <option value="Irlandés">Irlandés/a</option>
+                                    <option value="Islandés">Islandés/a</option>
+                                    <option value="Israelí">Israelí</option>
+                                    <option value="Italiano">Italiano/a</option>
+                                    <option value="Jamaicano">Jamaicano/a</option>
+                                    <option value="Japonés">Japonés/a</option>
+                                    <option value="Keniano">Keniano/a</option>
+                                    <option value="Letón">Letón/a</option>
+                                    <option value="Libanés">Libanés/a</option>
+                                    <option value="Lituano">Lituano/a</option>
+                                    <option value="Macedonio">Macedonio/a</option>
+                                    <option value="Maltés">Maltés/a</option>
+                                    <option value="Marroquí">Marroquí</option>
+                                    <option value="Mexicano">Mexicano/a</option>
+                                    <option value="Monegasco">Monegasco/a</option>
+                                    <option value="Mongol">Mongol/a</option>
+                                    <option value="Nepalí">Nepalí</option>
+                                    <option value="Neozelandés">Neozelandés/a</option>
+                                    <option value="Nicaragüense">Nicaragüense</option>
+                                    <option value="Nigeriano">Nigeriano/a</option>
+                                    <option value="Norcoreano">Norcoreano/a</option>
+                                    <option value="Noruego">Noruego/a</option>
+                                    <option value="Panameño">Panameño/a</option>
+                                    <option value="Paraguayo">Paraguayo/a</option>
+                                    <option value="Peruano">Peruano/a</option>
+                                    <option value="Polaco">Polaco/a</option>
+                                    <option value="Portugués">Portugués/a</option>
+                                    <option value="Puertorriqueño">Puertorriqueño/a</option>
+                                    <option value="Rumano">Rumano/a</option>
+                                    <option value="Ruso">Ruso/a</option>
+                                    <option value="Salvadoreño">Salvadoreño/a</option>
+                                    <option value="Serbio">Serbio/a</option>
+                                    <option value="Singapurense">Singapurense</option>
+                                    <option value="Sirio">Sirio/a</option>
+                                    <option value="Sudafricano">Sudafricano/a</option>
+                                    <option value="Sueco">Sueco/a</option>
+                                    <option value="Suizo">Suizo/a</option>
+                                    <option value="Surcoreano">Surcoreano/a</option>
+                                    <option value="Surinamés">Surinamés/a</option>
+                                    <option value="Tailandés">Tailandés/a</option>
+                                    <option value="Turco">Turco/a</option>
+                                    <option value="Ucraniano">Ucraniano/a</option>
+                                    <option value="Uruguayo">Uruguayo/a</option>
+                                    <option value="Venezolano">Venezolano/a</option>
+                                    <option value="Vietnamita">Vietnamita</option>
+                                    <option value="Yemení">Yemení</option>
+                                    <option value="Zimbabuense">Zimbabuense</option>
+                                </select>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="phone" class="form-label">Teléfono </label>
@@ -289,8 +289,8 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <input class="form-check-control" type="checkbox" value="true" id="entrepreneur" name="entrepreneur">
-                        <label class="form-check-label" for="entrepreneur">¿Eres emprendedor?</label>
+                        <input class="form-check-control" type="checkbox" {% if isEntrepreneur %}checked="checked"{% endif %} id="isEntrepreneurCheckbox" name="isEntrepreneur" value="True">
+                        <label class="form-check-label" for="isEntrepreneurCheckbox">¿Eres Emprendedor?</label>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="entrepreneurship" class="form-label">Emprendimiento</label>

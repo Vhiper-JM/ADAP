@@ -1,170 +1,177 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>ADAP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-          crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
     <link rel="icon" href="">
-    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="../../../static/images/imagen6.png" alt="" style="width: 100%; height: 950px; margin-left:0%; margin-right: 0%;">
+            <img src="../../../static/images/imagen6.png" alt=""
+                style="width: 100%; height: 950px; margin-left:0%; margin-right: 0%;">
         </div>
-        <div class="col-md-8" >
+        <div class="col-md-8">
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
                     <a href="{% url 'Inicio_sesion:signup' 'es' %}">
-                        <img src="../../../static/images/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        <img src="../../../static/images/flag.png" alt="" class="rounded float-end"
+                            style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
                     <a href="{% url 'Inicio_sesion:signup' 'en' %}">
-                        <img src="../../../static/images/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
+                        <img src="../../../static/images/united-kingdom.png" class="rounded float-end" alt=""
+                            style="width: 5%;">
                     </a>
                 </div>
             </div>
             <div class="container text-center">
                 <img src="../../../static/images/LogoU.png" alt="LogoU">
-                <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you a company? You can register as a company here: 
-                    <a href="{% url 'Inicio_sesion:signup_business' 'en' %}">ADAP company registration</a> 
+                <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you a company? You can
+                    register as a company here:
+                    <a href="{% url 'Inicio_sesion:signup_business' 'en' %}">ADAP company registration</a>
                 </h2>
-            </div>    
-            <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;">
+            </div>
+            <form action="/register_user/" class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="name" class="form-label">Names </label>
-                        <input type="text" id="name" class="form-control" name="name" placeholder="" required>         
+                        <label for="" class="form-label">Names </label>
+                        <input type="text" id="" class="form-control" name="name" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="surname" class="form-label">Surnames </label>
-                        <input type="text" id="surname" class="form-control" name="surname" placeholder="" required>         
+                        <label for="" class="form-label">Surnames </label>
+                        <input type="text" id="" class="form-control" name="surname" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="id" class="form-label">ID </label>
-                        <input type="text" id="id" class="form-control" name="id" placeholder="" required>
+                        <label for="" class="form-label">ID </label>
+                        <input type="text" id="" class="form-control" name="id" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="gender" class="form-label">Gender </label>
-                        <select id="gender" class="form-select" name="gender" required>
+                        <label for="" class="form-label">Gender </label>
+                        <select id="" class="form-select" name="gender">
                             <option value="" disabled selected>Select your gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="nationality" class="form-label">Nationality </label>
-                            <select id="nationality" class="form-select" name="nationality" required>
-                                <option value=""disabled selected>Select your nationality </option>
-                                <option value="">Afghan </option>
-                                <option value="">Albanian </option>
-                                <option value="">Algerian </option>
-                                <option value="">American </option>
-                                <option value="">Argentine </option>
-                                <option value="">Australian </option>
-                                <option value="">Austrian </option>
-                                <option value="">Belgian </option>
-                                <option value="">Beninese </option>
-                                <option value="">Bolivian </option>
-                                <option value="">Botswanian </option>
-                                <option value="">Brazilian </option>
-                                <option value="">British </option>
-                                <option value="">Cameroonian </option> 
-                                <option value="">Canadian </option>
-                                <option value="">Chilean </option>
-                                <option value="">Chinese </option>
-                                <option value="">Colombian </option>
-                                <option value="">Congolese </option>
-                                <option value="">Costa Rican </option>
-                                <option value="">Croatian </option>
-                                <option value="">Cuban </option>
-                                <option value="">Czech </option>
-                                <option value="">Danish </option>
-                                <option value="">Dutch </option>
-                                <option value="">Ecuadorian </option>
-                                <option value="">Egyptian </option>
-                                <option value="">Ethiopian </option>
-                                <option value="">Finnish </option>
-                                <option value="">French </option>
-                                <option value="">German </option>
-                                <option value="">Greek </option>
-                                <option value="">Guyanese </option>
-                                <option value="">Honduran </option>
-                                <option value="">Hungarian </option>
-                                <option value="">Icelandic </option>
-                                <option value="">Indian </option>
-                                <option value="">Iranian </option>
-                                <option value="">Iraqi</option>
-                                <option value="">Irish </option>
-                                <option value="">Israeli </option>
-                                <option value="">Italian </option>
-                                <option value="">Jamaican </option>
-                                <option value="">Japanese </option>
-                                <option value="">Kenian </option>
-                                <option value="">Latvian </option>
-                                <option value="">Lebanese </option>
-                                <option value="">Lithuanian </option>
-                                <option value="">Macedonian </option>
-                                <option value="">Maltese </option>
-                                <option value="">Mexican </option>
-                                <option value="">Monegasque </option>
-                                <option value="">Mongolian </option>
-                                <option value="">Moroccan </option>
-                                <option value="">Nepali </option>
-                                <option value="">New Zealand </option>
-                                <option value="">Nicaraguan </option>
-                                <option value="">Nigerian </option>
-                                <option value="">North Korean </option>
-                                <option value="">Norwegian </option>
-                                <option value="">Panamanian </option>
-                                <option value="">Paraguayan </option>
-                                <option value="">Peruvian </option>
-                                <option value="">Philippine </option>
-                                <option value="">Polish </option>
-                                <option value="">Portuguese </option>
-                                <option value="">Puerto Rican </option>
-                                <option value="">Romanian </option>
-                                <option value="">Russian </option>
-                                <option value="">Salvadoran </option>
-                                <option value="">Serbian </option>
-                                <option value="">Singaporean </option>
-                                <option value="">Slovakian </option>
-                                <option value="">Slovene </option>
-                                <option value="">South African </option>
-                                <option value="">South Korean </option>
-                                <option value="">Spanish </option>
-                                <option value="">Surinamese </option>
-                                <option value="">Swedish </option>
-                                <option value="">Swiss </option>
-                                <option value="">Syrian </option>
-                                <option value="">Thai </option>
-                                <option value="">Turkish </option>
-                                <option value="">Ukrainian </option>
-                                <option value="">Uruguayan </option>
-                                <option value="">Venezuelan </option>
-                                <option value="">Vietnamese </option>
-                                <option value="">Yemeni </option>
-                                <option value="">Zimbabwean </option>
-                            </select>
+                        <label for="" class="form-label">Nationality </label>
+                        <select id="" class="form-select" name="nationality">
+                            <option value="" disabled selected>Select your nationality </option>
+                            <option value="Afghan">Afghan </option>
+                            <option value="Albanian">Albanian </option>
+                            <option value="Algerian">Algerian </option>
+                            <option value="American">American </option>
+                            <option value="Argentine">Argentine </option>
+                            <option value="Australian">Australian </option>
+                            <option value="Austrian">Austrian </option>
+                            <option value="Belgian">Belgian </option>
+                            <option value="Beninese">Beninese </option>
+                            <option value="Bolivian">Bolivian </option>
+                            <option value="Botswanian">Botswanian </option>
+                            <option value="Brazilian">Brazilian </option>
+                            <option value="British">British </option>
+                            <option value="Cameroonian">Cameroonian </option>
+                            <option value="Canadian">Canadian </option>
+                            <option value="Chilean">Chilean </option>
+                            <option value="Chinese">Chinese </option>
+                            <option value="Colombian">Colombian </option>
+                            <option value="Congolese">Congolese </option>
+                            <option value="Costa Rican">Costa Rican </option>
+                            <option value="Croatian">Croatian </option>
+                            <option value="Cuban">Cuban </option>
+                            <option value="Czech">Czech </option>
+                            <option value="Danish">Danish </option>
+                            <option value="Dutch">Dutch </option>
+                            <option value="Ecuadorian">Ecuadorian </option>
+                            <option value="Egyptian">Egyptian </option>
+                            <option value="Ethiopian">Ethiopian </option>
+                            <option value="Finnish">Finnish </option>
+                            <option value="French">French </option>
+                            <option value="German">German </option>
+                            <option value="Greek">Greek </option>
+                            <option value="Guyanese">Guyanese </option>
+                            <option value="Honduran">Honduran </option>
+                            <option value="Hungarian">Hungarian </option>
+                            <option value="Icelandic">Icelandic </option>
+                            <option value="Indian">Indian </option>
+                            <option value="Iranian">Iranian </option>
+                            <option value="Iraqi">Iraqi</option>
+                            <option value="Irish">Irish </option>
+                            <option value="Israeli">Israeli </option>
+                            <option value="Italian">Italian </option>
+                            <option value="Jamaican">Jamaican </option>
+                            <option value="Japanese">Japanese </option>
+                            <option value="Kenian">Kenian </option>
+                            <option value="Latvian">Latvian </option>
+                            <option value="Lebanese">Lebanese </option>
+                            <option value="Lithuanian">Lithuanian </option>
+                            <option value="Macedonian">Macedonian </option>
+                            <option value="Maltese">Maltese </option>
+                            <option value="Mexican">Mexican </option>
+                            <option value="Monegasque">Monegasque </option>
+                            <option value="Mongolian">Mongolian </option>
+                            <option value="Moroccan">Moroccan </option>
+                            <option value="Nepali">Nepali </option>
+                            <option value="New Zealand">New Zealand </option>
+                            <option value="Nicaraguan">Nicaraguan </option>
+                            <option value="Nigerian">Nigerian </option>
+                            <option value="North Korean">North Korean </option>
+                            <option value="Norwegian">Norwegian </option>
+                            <option value="Panamanian">Panamanian </option>
+                            <option value="Paraguayan">Paraguayan </option>
+                            <option value="Peruvian">Peruvian </option>
+                            <option value="Philippine">Philippine </option>
+                            <option value="Polish">Polish </option>
+                            <option value="Portuguese">Portuguese </option>
+                            <option value="Puerto Rican">Puerto Rican </option>
+                            <option value="Romanian">Romanian </option>
+                            <option value="Russian">Russian </option>
+                            <option value="Salvadoran">Salvadoran </option>
+                            <option value="Serbian">Serbian </option>
+                            <option value="Singaporean">Singaporean </option>
+                            <option value="Slovakian">Slovakian </option>
+                            <option value="Slovene">Slovene </option>
+                            <option value="South African">South African </option>
+                            <option value="South Korean">South Korean </option>
+                            <option value="Spanish">Spanish </option>
+                            <option value="Surinamese">Surinamese </option>
+                            <option value="Swedish">Swedish </option>
+                            <option value="Swiss">Swiss </option>
+                            <option value="Syrian">Syrian </option>
+                            <option value="Thai">Thai </option>
+                            <option value="Turkish">Turkish </option>
+                            <option value="Ukrainian">Ukrainian </option>
+                            <option value="Uruguayan">Uruguayan </option>
+                            <option value="Venezuelan">Venezuelan </option>
+                            <option value="Vietnamese">Vietnamese </option>
+                            <option value="Yemeni">Yemeni </option>
+                            <option value="Zimbabwean">Zimbabwean </option>
+                        </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="phone" class="form-label">Phone </label>
-                        <input type="text" id="phone" class="form-control" name="phone" placeholder="" required>
+                        <label for="" class="form-label">Phone </label>
+                        <input type="text" id="" class="form-control" name="phone" placeholder="">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="country" class="form-label">Country of Residence</label>
-                        <select id="country" class="form-select" name="country" required>
+                        <label for="" class="form-label">Country of Residence</label>
+                        <select id="" class="form-select" name="country">
                             <option value="" disabled selected>Select your country of residence</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -258,16 +265,20 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="birthdate" class="form-label">Birth date </label>
-                        <input type="date" id="birthdate" class="form-control" name="birthdate" placeholder="" required>
+                        <label for="" class="form-label"> Date of Birth </label>
+                        <input type="date" id="" class="form-control" name="birthdate" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="company" class="form-label">Company</label>
-                        <input type="text" id="company" class="form-control" name="company" placeholder="" required>
+                        <label for="" class="form-label">E-mail</label>
+                        <input type="text" id="" class="form-control" name="email" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="position" class="form-label">Position in the company</label>
-                        <select id="position" class="form-select" name="position" required>
+                        <label for="" class="form-label">Company</label>
+                        <input type="text" id="" class="form-control" name="company" placeholder="">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="" class="form-label">Position in the company</label>
+                        <select id="" class="form-select" name="position">
                             <option value="" disabled selected>Select your position</option>
                             <option value="CEO">CEO (Chief Executive Officer)</option>
                             <option value="COO">COO (Chief Operating Officer)</option>
@@ -289,17 +300,17 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <input class="form-check-control" type="checkbox" value="entrepreneur" id="entrepreneur">
-                        <label class="form-check-label" for="entrepreneur">Are you an entrepreneur?</label>
+                        <input class="form-check-control" type="checkbox" {% if isEntrepreneur %}checked="checked"{% endif %} id="isEntrepreneurCheckbox" name="isEntrepreneur" value="True">
+                        <label class="form-check-label" for="isEntrepreneurCheckbox">Are you an entrepreneur?</label>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="entrepreneurship" class="form-label">Entrepreneurship</label>
-                        <input type="text" id="entrepreneurship" class="form-control" name="entrepreneurship" placeholder="">
+                        <label for="" class="form-label">Entrepreneurship</label>
+                        <input type="text" id="" class="form-control" name="entrepreneurship" placeholder="">
                     </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <input class="form-check-control" type="checkbox" value="" id="">
-                    <label class="form-check-label" for="" required>I have read and accept the Terms and Conditions</label>
+                    <input class="form-check-control" type="checkbox" value="" id="" name="conditions">
+                    <label class="form-check-label" for="">I have read and accept the Terms and Conditions</label>
                 </div>
                 <div class="d-flex justify-content-center">
                     <input type="submit" name="" value="Register" style="background-color: #55CC93;">
@@ -308,4 +319,5 @@
         </div>
     </div>
 </body>
+
 </html>

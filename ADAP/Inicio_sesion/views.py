@@ -2,26 +2,9 @@
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
-# librerias adicionales
-import json
-import pyrebase
-# archivos locales
-from .ConexionDB import refDB  # Importing db reference from ConexionDB.py
+from .ConexionDB import db, authenticate_user, check_email_existence, create_document  # Importing db reference from ConexionDB.py
 
-# Pyrebase initialization for user authentication
-config = {
-  "apiKey": "AIzaSyCkeIBWE--pQhFUWgJ0ownE_le1ixzJBxw",
-  "authDomain": "auto-liderazgodb.firebaseapp.com",
-  "databaseURL": "https://auto-liderazgodb-default-rtdb.firebaseio.com",
-  "projectId": "auto-liderazgodb",
-  "storageBucket": "auto-liderazgodb.appspot.com",
-  "messagingSenderId": "815578098109",
-  "appId": "1:815578098109:web:7680bb79cd30766d580ad4",
-  "measurementId": "G-S4GRF8BD9B"
-}
 
-firebase = pyrebase.initialize_app(config)
-autenticacion = firebase.auth()
 
 def index(request):
     """
@@ -44,12 +27,15 @@ def login(request, lang):
 def postlogin(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
+    authenticate_user(email, password)
 
-    try:
-        user = autenticacion.sign_in_with_email_and_password(email, password)
+    if authenticate_user(email, password) == True:
         return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
-    except:
-        return HttpResponse('Algo salio mal')
+
+    else:
+        # Retunr hhhtp response with error message, wrong credentials
+        return HttpResponse('Credenciales incorrectas o usuario no existe')
+
 
 def signup(request, lang):
     """
@@ -72,94 +58,90 @@ def signup_business(request, lang):
             return render(request, 'Inicio_sesion/en/sign_up-company.html')
 
 
-# view create user
-def create_user(request):
-    name = request.POST.get('name')
-    surname = request.POST.get('surname')
-    idUser = request.POST.get('id')
+def register_user(request):
+    firstName = request.POST.get('name')
+    lastName = request.POST.get('surname')
+    userID = request.POST.get('id')
     gender = request.POST.get('gender')
     nationality = request.POST.get('nationality')
     phone = request.POST.get('phone')
     country = request.POST.get('country')
-    birthdate = request.POST.get('birthdate')
+    birthday = request.POST.get('birthdate')
     email = request.POST.get('email')
     company = request.POST.get('company')
     position = request.POST.get('position')
-    entrepreneur = request.POST.get('entrepreneur')
+    isEntrepreneur = request.POST.get('isEntrepreneur', "False")
     entrepreneurship = request.POST.get('entrepreneurship')
     password = request.POST.get('password')
 
-    # Create a dictionary with user data
+    # Crear un diccionario con los datos del usuario
     user_data = {
-        'name': name,
-        'surname': surname,
-        'idUser': idUser,
+        'firstName': firstName,
+        'lastName': lastName,
+        'userID': userID,
         'gender': gender,
         'nationality': nationality,
         'phone': phone,
         'country': country,
-        'birthdate': birthdate,
+        'birthday': birthday,
         'email': email,
         'company': company,
         'position': position,
-        'entrepreneur': entrepreneur,
+        'isEntrepreneur': isEntrepreneur,
         'entrepreneurship': entrepreneurship,
         'password': password
     }
 
-
     try:
-        # print(user_data)
-        # # Reference to the Firebase Realtime Database
-        # print(refDB)
-        
-        # Retrieve user data from Firebase
-        user_data_dict = refDB.child('Usuario').get()  # Retrieve JSON data as a string
-        # print(user_data_dict)
-        
-        email_exists = False
-        # Check if the email already exists in users data
-        for key, data in user_data_dict.items():  # Loop through dictionary items correctly
-            # Imprimir key y data
-            # print(f'Key: {key}, Data: {data}')
-            if key == 'email' and data == email:
-                # Si el email ya existe, imprmir la siguiente linea
-                # print(f'Email ya existe: {email}')
-                email_exists = True
-                break 
+        # Verificar si el correo ya existe
+        email_exists = check_email_existence(email)
 
         if email_exists:
-            return render(request, 'TempLogin.html', {'error': 'Usuario ya existe'})
+            return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
         else:
-            refDB.child('Usuario').push(user_data)
-            return render(request, 'TempLogin.html', {'error': 'Registro exitoso'})
+            # Crear el usuario en la base de datos
+            create_document('User', user_data)  # Call the create_document function with the appropriate arguments
+            return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
 
     except Exception as e:
-        # Log or handle exceptions more specifically
-        return render(request, 'TempLogin.html', {'error': f'Error: {e}'})
+        # Manejar errores específicos aquí
+        return render(request, 'Inicio_sesion/regisEXI.html', {'error': f'Error: {e}'})
 
 
-def create_userB(request):
-    company_name = request.POST.get('companyName')
-    date_of_foundation = request.POST.get('dateFoundation')
+def register_company(request):
+    companyName = request.POST.get('companyName')
+    foundationDate = request.POST.get('dateFoundation')
     email = request.POST.get('email')
     phone = request.POST.get('phone')
     country = request.POST.get('country')
     password = request.POST.get('password')
 
+    print(f"Company Name: {companyName}")
+    print(f"Foundation Date: {foundationDate}")
+    print(f"Email: {email}")
+    print(f"Phone: {phone}")
     # Create a dictionary with user data
     user_data = {
-        'companyName': company_name,
-        'dateOfFoundation': date_of_foundation,
+        'companyName': companyName,
+        'foundationDate': foundationDate,
         'email': email,
         'phone': phone,
         'country': country,
         'password': password,
     }
 
+
     try:
-        # Reference to the Firebase Realtime Database
-        refDB.reference('Empresa').push(user_data)  # Use set() instead of push() if you want to overwrite existing data
-        return render(request, 'TempLogin.html', {'error': 'Registro exitoso'})  # Redirect to a success page
+        # Verificar si el correo ya existe
+        email_exists = check_email_existence(email)
+
+        if email_exists:
+            return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
+        else:
+            # Crear el usuario en la base de datos
+            create_document('Company', user_data)  # Call the create_document function with the appropriate arguments
+            return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
+
     except Exception as e:
-        return render(request, 'TempLogin.html', {'error': f'Error: {e}'})  # Handle any errors during the operation
+        # Manejar errores específicos aquí
+        return render(request, 'Inicio_sesion/regisEXI.html', {'error': f'Error: {e}'})
