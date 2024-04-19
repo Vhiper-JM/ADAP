@@ -1,0 +1,20 @@
+.avatar-container {
+    text-align: center;
+}
+.file-upload-label {
+    margin-top: 10px;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+button{
+ color: white;
+ background-color: #43A941; 
+ margin-top: 20px; 
+ margin-bottom: 20px; 
+ text-align: center; 
+ padding: 5px 20px;
+ font-size: 15px; 
+}

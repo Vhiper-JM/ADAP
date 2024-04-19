@@ -12,18 +12,19 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
           crossorigin="anonymous" />
     <link rel="icon" href="">
-    <link rel="stylesheet" href="css/styles.css"> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Inicio_sesion/css/styles.css' %}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="../../../static/images/imagen6.png" alt="" style="width: 100%; height: 650px; margin-left:0%; margin-right: 0%;">
+            <img src="{% static 'Inicio_sesion/images/imagen6.png' %}" alt="" style="width: 100%; height: 650px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8" >
             <div class="container text-center">
-                <img src="../../../static/images/LogoU.png" alt="LogoU">   
+                <img src="{% static 'Inicio_sesion/images/LogoU.png' %}" alt="LogoU">   
             <div class="row justify-content-center">
                 <h2 class="text-shadow" style="margin-top: 20px;"> Log In</h2>
                 <div class="col-md-6">
@@ -57,10 +58,10 @@
             </div>
             <div class="flags-container">
                 <a href="{% url 'Inicio_sesion:login' 'es' %}">
-                    <img src="../../../static/images/flag.png" alt="" class="rounded" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                    <img src="{% static 'Inicio_sesion/images/flag.png' %}" alt="" class="rounded" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                 </a>
                 <a href="{% url 'Inicio_sesion:login' 'en' %}">
-                    <img src="../../../static/images/united-kingdom.png" class="rounded" alt="" style="width: 5%;">
+                    <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded" alt="" style="width: 5%;">
                 </a>
             </div>
         </div>

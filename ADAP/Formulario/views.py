@@ -1,3 +1,10 @@
 from django.shortcuts import render
+import ConexionDB as CDB # Importing db reference from ConexionDB.py
 
-# Create your views here.
+
+
+def index(request):
+    """
+    Muestra el inicio de la plataforma con el login en ingles
+    """
+    return render(request, "Formulario/tempUserHome.html")

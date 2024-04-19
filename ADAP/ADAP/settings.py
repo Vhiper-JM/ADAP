@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'Inicio_sesion.apps.InicioSesionConfig',
+    'Formulario.apps.FormularioConfig',
+    'Resultados.apps.ResultadosConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
