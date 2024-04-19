@@ -2,10 +2,14 @@
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
+
 import firebase_admin.auth
 from .ConexionDB import db, authenticate_user, check_email_existence, create_document  # Importing db reference from ConexionDB.py
 
 import pyrebase
+
+import ConexionDB as CDB # Importing db reference from ConexionDB.py 
+
 
 # import firebase_admin
 # import smtplib
