@@ -12,27 +12,28 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
           crossorigin="anonymous" />
     <link rel="icon" href="">
+    {% load static %}
     <link rel="stylesheet" href="css/styles.css"> 
 </head>
 
 <body>
     <div class="row">
         <div class="col-md-4">
-            <img src="../../../static/images/imagen6.png" alt="" style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
+            <img src="{% static 'Inicio_sesion/images/imagen6.png' %}" alt="" style="width: 100%; height: 850px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8" >
             <div class="container position-relative">
                 <div class="position-absolute top-0 end-0">
                     <a href="{% url 'Inicio_sesion:signup_business' 'es' %}">
-                        <img src="../../../static/images/flag.png" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        <img src="{% static 'Inicio_sesion/images/flag.png' %}" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
                     </a>
                     <a href="{% url 'Inicio_sesion:signup_business' 'en' %}">
-                        <img src="../../../static/images/united-kingdom.png" class="rounded float-end" alt="" style="width: 5%;">
+                        <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded float-end" alt="" style="width: 5%;">
                     </a>
                 </div>
             </div>
             <div class="container text-center">
-                <img src="../../../static/images/LogoU.png" alt="LogoU">
+                <img src="{% static 'Inicio_sesion/images/LogoU.png' %}" alt="LogoU">
                 <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you not a company? You can register as a user here: 
                     <a href="{% url 'Inicio_sesion:signup' 'es' %}">Sign Up ADAP </a> 
                 </h2>

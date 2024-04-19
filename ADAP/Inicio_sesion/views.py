@@ -2,10 +2,14 @@
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
+<<<<<<< HEAD
 import firebase_admin.auth
 from .ConexionDB import db, authenticate_user, check_email_existence, create_document  # Importing db reference from ConexionDB.py
 
 import pyrebase
+=======
+import ConexionDB as CDB # Importing db reference from ConexionDB.py 
+>>>>>>> 09cee828291f737887fd24d783202f5fa5d98091
 
 # import firebase_admin
 # import smtplib
@@ -42,9 +46,9 @@ def login(request, lang):
 def postlogin(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
-    authenticate_user(email, password)
+    CDB.authenticate_user(email, password)
 
-    if authenticate_user(email, password) == True:
+    if CDB.authenticate_user(email, password) == True:
         return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
 
     else:
@@ -109,7 +113,7 @@ def register_user(request):
 
     try:
         # Verificar si el correo ya existe
-        email_exists = check_email_existence(email)
+        email_exists = CDB.check_email_existence(email)
 
         if email_exists:
             return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
@@ -156,13 +160,13 @@ def register_company(request):
 
     try:
         # Verificar si el correo ya existe
-        email_exists = check_email_existence(email)
+        email_exists = CDB.check_email_existence(email)
 
         if email_exists:
             return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
         else:
             # Crear el usuario en la base de datos
-            create_document('Company', user_data)  # Call the create_document function with the appropriate arguments
+            CDB.create_document('Company', user_data)  # Call the create_document function with the appropriate arguments
             return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
 
     except Exception as e:
