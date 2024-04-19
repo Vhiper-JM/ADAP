@@ -2,9 +2,24 @@
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
+import firebase_admin.auth
 from .ConexionDB import db, authenticate_user, check_email_existence, create_document  # Importing db reference from ConexionDB.py
 
+import pyrebase
 
+# import firebase_admin
+# import smtplib
+
+firebaseConfig = {
+    "apiKey": "AIzaSyCkeIBWE--pQhFUWgJ0ownE_le1ixzJBxw",
+    "authDomain": "auto-liderazgodb.firebaseapp.com",
+    "databaseURL": "https://auto-liderazgodb-default-rtdb.firebaseio.com",
+    "projectId": "auto-liderazgodb",
+    "storageBucket": "auto-liderazgodb.appspot.com",
+    "messagingSenderId": "815578098109",
+    "appId": "1:815578098109:web:7680bb79cd30766d580ad4",
+    "measurementId": "G-S4GRF8BD9B"
+}
 
 def index(request):
     """
@@ -12,7 +27,7 @@ def index(request):
     """
     return render(request, "Inicio_sesion/en/login.html")
 
-# Recordar remplazar vew login OFICIAL
+# Recordar reemplazar vew login OFICIAL
 def login(request, lang):
     """
     Muestra el inicio de sesión según el idioma seleccionado
@@ -33,7 +48,7 @@ def postlogin(request):
         return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
 
     else:
-        # Retunr hhhtp response with error message, wrong credentials
+        # Return hhhtp response with error message, wrong credentials
         return HttpResponse('Credenciales incorrectas o usuario no existe')
 
 
@@ -101,6 +116,14 @@ def register_user(request):
         else:
             # Crear el usuario en la base de datos
             create_document('User', user_data)  # Call the create_document function with the appropriate arguments
+            # firebase_admin.auth.create_user(email=email, password=password )                 
+            firebase = pyrebase.initialize_app(firebaseConfig)
+
+            auth = firebase.auth()
+            user = auth.create_user_with_email_and_password(email, password)
+
+            sign = auth.sign_in_with_email_and_password(email, password)
+            auth.send_email_verification(sign['idToken'])
             return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
 
     except Exception as e:
