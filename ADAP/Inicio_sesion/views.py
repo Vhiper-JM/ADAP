@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 import firebase_admin.auth
-from .ConexionDB import db, authenticate_user, check_email_existence, create_document  # Importing db reference from ConexionDB.py
+
 
 import pyrebase
 
@@ -119,7 +119,7 @@ def register_user(request):
             return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
         else:
             # Crear el usuario en la base de datos
-            create_document('User', user_data)  # Call the create_document function with the appropriate arguments               
+            CDB.create_document('User', user_data)  # Call the create_document function with the appropriate arguments               
             firebase = pyrebase.initialize_app(firebaseConfig)
 
             auth = firebase.auth()

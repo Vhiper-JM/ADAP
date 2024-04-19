@@ -5,5 +5,4 @@ app_name = 'Formulario'
 
 urlpatterns = [
     path('', views.index, name='index'),
-
 ]

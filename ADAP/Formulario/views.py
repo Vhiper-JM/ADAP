@@ -7,4 +7,4 @@ def index(request):
     """
     Muestra el inicio de la plataforma con el login en ingles
     """
-    return render(request, "Formulario/tempUserHome.html")
+    return render(request, "Formulario/en/ViewUser.html")
