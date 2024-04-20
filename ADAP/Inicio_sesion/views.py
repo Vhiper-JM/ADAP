@@ -52,13 +52,13 @@ def postlogin(request):
         return HttpResponse('Credenciales incorrectas o usuario no existe')
 
 
-def signup(request, lang):
+def signup(request):
     """
     Muestra el formulario de registro segun el idioma dado
     """
     return render(request, 'Inicio_sesion/signupuser.html')
 
-def signup_business(request, lang):
+def signup_business(request):
     """
     Muestra el formulario de registro de empresa segun el idioma
     """
