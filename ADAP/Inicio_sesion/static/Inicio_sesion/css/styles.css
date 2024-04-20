@@ -31,3 +31,19 @@ img {
 .form-group#contrasena-group::before{
     content: "\f023";
 }
+
+.flags-container {
+    display: inline-block;
+}
+.flag {
+    display: inline-block;
+}
+
+.flag > img {
+    display: inline-block;
+    width: 50px;
+}
+
+.banner {
+    padding: 0;
+}
