@@ -1,5 +1,6 @@
 {
     "form": {
-        "title": "Inicio de sesión"
+        "title": "Inicio de sesión",
+        "submit-btn": "Iniciar sesión"
     }
 }

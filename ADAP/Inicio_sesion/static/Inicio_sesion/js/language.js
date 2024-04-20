@@ -8,6 +8,10 @@ const changeLanguage = async (language) => {
     for (const textToChange of textsToChange) {
         const section = textToChange.dataset.section;
         const value = textToChange.dataset.value;
+        if (value=="submit-btn") {
+            textToChange.value = texts[section][value];
+            continue;
+        }
         textToChange.innerHTML=texts[section][value];
     }
 } 

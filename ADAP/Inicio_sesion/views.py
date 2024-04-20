@@ -29,18 +29,14 @@ def index(request):
     """
     Muestra el inicio de la plataforma con el login en ingles
     """
-    return render(request, "Inicio_sesion/en/login.html")
+    return render(request, "Inicio_sesion/login.html")
 
 # Recordar reemplazar vew login OFICIAL
 def login(request, lang):
     """
     Muestra el inicio de sesión según el idioma seleccionado
     """
-    match lang:
-        case 'es':
-            return render(request, 'Inicio_sesion/es/iniciarsesion.html')
-        case 'en':
-            return render(request, 'Inicio_sesion/en/login.html')
+    return render(request, 'Inicio_sesion/login.html')
 
 # view login
 def postlogin(request):
@@ -60,21 +56,13 @@ def signup(request, lang):
     """
     Muestra el formulario de registro segun el idioma dado
     """
-    match lang:
-        case 'es':
-            return render(request, 'Inicio_sesion/es/registrousuario.html')
-        case 'en':
-            return render(request, 'Inicio_sesion/en/signupuser.html')
+    return render(request, 'Inicio_sesion/signupuser.html')
 
 def signup_business(request, lang):
     """
     Muestra el formulario de registro de empresa segun el idioma
     """
-    match lang:
-        case 'es':
-            return render(request, 'Inicio_sesion/es/empresa_registro.html')
-        case 'en':
-            return render(request, 'Inicio_sesion/en/sign_up-company.html')
+    return render(request, 'Inicio_sesion/sign_up-company.html')
 
 
 def register_user(request):
