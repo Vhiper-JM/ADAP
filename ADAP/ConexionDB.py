@@ -120,3 +120,21 @@ def create_document(collection_name, document_data):
         print(f"Error al crear el documento: {e}")
         return False
 
+def get_user_info(email):
+    try:
+        # Query the "users" collection to find the document with matching email field
+        users_ref = db.collection('User')
+        query = users_ref.where('email', '==', email).limit(1)
+        user_docs = query.stream()
+
+        # Check if any document matches the email
+        for user_doc in user_docs:
+            # Convert Firestore document to Python dictionary
+            user_data = user_doc.to_dict()
+            print(f"La info del usuario es {user_data}")
+            return user_data
+        # Return None if no document is found with the provided email
+        return None
+    except Exception as e:
+        print(f"Error fetching user information: {e}")
+        return None

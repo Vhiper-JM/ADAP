@@ -1,7 +1,7 @@
 # Django
 from django.http import Http404
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 import firebase_admin.auth
 
@@ -47,13 +47,15 @@ def login(request, lang):
 def postlogin(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
-    CDB.authenticate_user(email, password)
 
-    if CDB.authenticate_user(email, password) == True:
-        return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
+    usuario = firebase_admin.auth.get_user_by_email(email)
+    verificacion = usuario.email_verified
 
+    if CDB.authenticate_user(email, password) and verificacion:
+        # Store email in session
+        request.session['user_email'] = email
+        return redirect('Formulario:userView')  # Redirect to userView
     else:
-        # Return hhhtp response with error message, wrong credentials
         return HttpResponse('Credenciales incorrectas o usuario no existe')
 
 
