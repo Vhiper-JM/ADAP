@@ -30,22 +30,22 @@
                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 50px; border-radius: 50%;">
                     <input type="file" class="text-center center-block file-upload" style="margin-left: 85px;">
                     <div class="form-group">
-                        <label for="email" style="font-size: 30px; margin-top: 10px;">COMPANY NAME</label>
+                        <label for="email" style="font-size: 30px; margin-top: 10px;">{{ company_info.companyName }}</label>
                     </div>
                 </div>
                 <div class="tab-content" style="margin-top: 20px; margin-left: 50px; text-align: start;">
                     <div class="tab-pane active" id="home">
                         <div class="form-group">
-                            <label for="email">Foundation date:</label>
+                            <label for="email">Foundation date: {{ company_info.foundationDate }}</label>
                         </div>
                         <div class="form-group">
-                            <label for="identification">Email:</label>
+                            <label for="identification">Email: {{ company_info.email }}</label>
                         </div>
                         <div class="form-group">
-                            <label for="nationality">Phone:</label>
+                            <label for="nationality">Phone: {{ company_info.phone }}</label>
                         </div>
                         <div class="form-group">
-                            <label for="country">Country of residence:</label>
+                            <label for="country">Country of residence: {{ company_info.country }}</label>
                         </div>
                         <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
                     </div>
@@ -74,18 +74,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for employee in company_info.employees %}
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td>{{ employee.full_name }}</td>
+                                <td>{{ employee.position }}</td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
