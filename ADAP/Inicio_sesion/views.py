@@ -13,38 +13,52 @@ import ConexionDB as CDB # Importing db reference from ConexionDB.py
 
 # import firebase_admin
 # import smtplib
+from dotenv import load_dotenv
+import os
+
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
 
 firebaseConfig = {
-    "apiKey": "AIzaSyCkeIBWE--pQhFUWgJ0ownE_le1ixzJBxw",
-    "authDomain": "auto-liderazgodb.firebaseapp.com",
-    "databaseURL": "https://auto-liderazgodb-default-rtdb.firebaseio.com",
-    "projectId": "auto-liderazgodb",
-    "storageBucket": "auto-liderazgodb.appspot.com",
-    "messagingSenderId": "815578098109",
-    "appId": "1:815578098109:web:7680bb79cd30766d580ad4",
-    "measurementId": "G-S4GRF8BD9B"
+    "apiKey": os.getenv("FIREBASE_API_KEY"),
+    "authDomain": os.getenv("FIREBASE_AUTH_DOMAIN"),
+    "databaseURL": os.getenv("FIREBASE_DATABASE_URL"),
+    "projectId": os.getenv("FIREBASE_PROJECT_ID"),
+    "storageBucket": os.getenv("FIREBASE_STORAGE_BUCKET"),
+    "messagingSenderId": os.getenv("FIREBASE_MESSAGING_SENDER_ID"),
+    "appId": os.getenv("FIREBASE_APP_ID"),
+    "measurementId": os.getenv("FIREBASE_MEASUREMENT_ID")
 }
 
 def index(request):
     """
     Muestra el inicio de la plataforma con el login en ingles
     """
-    return render(request, "Inicio_sesion/login.html")
+    return render(request, "Inicio_sesion/en/login.html")
 
 # Recordar reemplazar vew login OFICIAL
 def login(request, lang):
     """
     Muestra el inicio de sesión según el idioma seleccionado
     """
-    return render(request, 'Inicio_sesion/login.html')
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/iniciarsesion.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/login.html')
 
 # view login
 def postlogin(request):
+
     email = request.POST.get('email')
     password = request.POST.get('password')
+
+    usuario = firebase_admin.auth.get_user_by_email(email)
+    verificacion = usuario.email_verified
+
     CDB.authenticate_user(email, password)
 
-    if CDB.authenticate_user(email, password) == True:
+    if CDB.authenticate_user(email, password) == True and verificacion == True:
         return render(request, 'Inicio_sesion/conexEXI.html', {'email': email})
 
     else:
@@ -52,17 +66,25 @@ def postlogin(request):
         return HttpResponse('Credenciales incorrectas o usuario no existe')
 
 
-def signup(request):
+def signup(request, lang):
     """
     Muestra el formulario de registro segun el idioma dado
     """
-    return render(request, 'Inicio_sesion/signupuser.html')
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/registrousuario.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/signupuser.html')
 
-def signup_business(request):
+def signup_business(request, lang):
     """
     Muestra el formulario de registro de empresa segun el idioma
     """
-    return render(request, 'Inicio_sesion/sign_up-company.html')
+    match lang:
+        case 'es':
+            return render(request, 'Inicio_sesion/es/empresa_registro.html')
+        case 'en':
+            return render(request, 'Inicio_sesion/en/sign_up-company.html')
 
 
 def register_user(request):
