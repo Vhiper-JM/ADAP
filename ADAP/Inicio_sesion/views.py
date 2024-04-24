@@ -2,167 +2,120 @@
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
-import firebase_admin.auth
-
-
-import pyrebase
-
-import ConexionDB as CDB # Importing db reference from ConexionDB.py 
-
-
-# import firebase_admin
-# import smtplib
-from dotenv import load_dotenv
-import os
-
-# Carga las variables de entorno desde el archivo .env
-load_dotenv()
-
-firebaseConfig = {
-    "apiKey": os.getenv("FIREBASE_API_KEY"),
-    "authDomain": os.getenv("FIREBASE_AUTH_DOMAIN"),
-    "databaseURL": os.getenv("FIREBASE_DATABASE_URL"),
-    "projectId": os.getenv("FIREBASE_PROJECT_ID"),
-    "storageBucket": os.getenv("FIREBASE_STORAGE_BUCKET"),
-    "messagingSenderId": os.getenv("FIREBASE_MESSAGING_SENDER_ID"),
-    "appId": os.getenv("FIREBASE_APP_ID"),
-    "measurementId": os.getenv("FIREBASE_MEASUREMENT_ID")
-}
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+# Models
+from .models import CustomUser, Company
 
 def index(request):
     """
     Muestra el inicio de la plataforma con el login en ingles
     """
-    return render(request, "Inicio_sesion/login.html")
+    return redirect("Inicio_sesion:signin")
 
 # Recordar reemplazar vew login OFICIAL
-def login(request, lang):
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+
+def signin(request):
     """
-    Muestra el inicio de sesión según el idioma seleccionado
+    Args:
+        request: La solicitud HTTP recibida.
+
+    Returns:
+        Una respuesta HTTP que renderiza la página de inicio de sesión o redirige a la página de formulario de usuario.
+
+    Raises:
+        No se producen excepciones en este código.
     """
-    return render(request, 'Inicio_sesion/login.html')
-
-# view login
-def postlogin(request):
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-
-    usuario = firebase_admin.auth.get_user_by_email(email)
-    verificacion = usuario.email_verified
-
-    if CDB.authenticate_user(email, password) and verificacion:
-        # Store email in session
-        request.session['user_email'] = email
-        return redirect('Formulario:userView')  # Redirect to userView
+    if request.method == 'GET':
+        # Si la solicitud es GET, renderiza la página de inicio de sesión.
+        return render(request, 'Inicio_sesion/login.html')
     else:
-        return HttpResponse('Credenciales incorrectas o usuario no existe')
+        # Si la solicitud no es GET, obtén el correo electrónico y la contraseña del formulario.
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        # Autentica al usuario usando el correo electrónico y la contraseña proporcionados.
+        user = authenticate(username=email, password=password)
+        company = Company.objects.filter(email=email)
+        
+        if user is not None:
+            # Si el usuario es autenticado correctamente, inicia sesión en la sesión actual.
+            login(request, user)
+            # Redirige a la página de formulario de usuario.
+            return redirect('Formulario:userView')
+        else:
+            # Si la autenticación falla, podrías manejar el error aquí, como mostrar un mensaje de error.
+            # En este caso, se puede redirigir a la misma página de inicio de sesión con un mensaje de error.
+            return render(request, 'Inicio_sesion/login.html', context={'error_message': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'})
 
 
+# NO OLVIDAR HACER QUE LOS HTML SE ENVIEN LA INFORMACION A SI MISMAS
 def signup(request):
-    """
-    Muestra el formulario de registro segun el idioma dado
-    """
-    return render(request, 'Inicio_sesion/signupuser.html')
+    if request.method == 'GET':
+        return render(request, 'Inicio_sesion/signupuser.html')
+    else:
+        first_name = request.POST.get('name')
+        lastName = request.POST.get('surname')
+        userID = request.POST.get('id')
+        gender = request.POST.get('gender')
+        nationality = request.POST.get('nationality')
+        phone = request.POST.get('phone')
+        country = request.POST.get('country')
+        birthday = request.POST.get('birthdate')
+        email = request.POST.get('email')
+        company = request.POST.get('company')
+        position = request.POST.get('position')
+        isEntrepreneur = request.POST.get('isEntrepreneur', "False")
+        entrepreneurship = request.POST.get('entrepreneurship')
+        password = request.POST.get('password')
+        
+        company = Company.objects.filter(name=company)
+        custom_user = CustomUser(
+            first_name=first_name,
+            last_name=lastName,
+            user_id=userID,
+            gender=gender,
+            nationality=nationality,
+            phone=phone,
+            country=country,
+            birthday=birthday,
+            email=email,
+            company=company,
+            position=position,
+            is_entrepreneur=isEntrepreneur,
+            entrepreneurship=entrepreneurship,
+            password=password,
+        )
+        
+        custom_user.save()
+
+        user_custom_user = User.objects.create_user(username=email, email=email, password=password)
+        # TODO - Utilizar funcion login para logear, crear la cookie, y redireccionar a la view principal
+
+        pass
+
 
 def signup_business(request):
-    """
-    Muestra el formulario de registro de empresa segun el idioma
-    """
-    return render(request, 'Inicio_sesion/sign_up-company.html')
-
-
-def register_user(request):
-    firstName = request.POST.get('name')
-    lastName = request.POST.get('surname')
-    userID = request.POST.get('id')
-    gender = request.POST.get('gender')
-    nationality = request.POST.get('nationality')
-    phone = request.POST.get('phone')
-    country = request.POST.get('country')
-    birthday = request.POST.get('birthdate')
-    email = request.POST.get('email')
-    company = request.POST.get('company')
-    position = request.POST.get('position')
-    isEntrepreneur = request.POST.get('isEntrepreneur', "False")
-    entrepreneurship = request.POST.get('entrepreneurship')
-    password = request.POST.get('password')
-
-    # Crear un diccionario con los datos del usuario
-    user_data = {
-        'firstName': firstName,
-        'lastName': lastName,
-        'userID': userID,
-        'gender': gender,
-        'nationality': nationality,
-        'phone': phone,
-        'country': country,
-        'birthday': birthday,
-        'email': email,
-        'company': company,
-        'position': position,
-        'isEntrepreneur': isEntrepreneur,
-        'entrepreneurship': entrepreneurship,
-        'password': password
-    }
-
-    try:
-        # Verificar si el correo ya existe
-        email_exists = CDB.check_email_existence(email)
-
-        if email_exists:
-            return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
-        else:
-            # Crear el usuario en la base de datos
-            CDB.create_document('User', user_data)  # Call the create_document function with the appropriate arguments               
-            firebase = pyrebase.initialize_app(firebaseConfig)
-
-            auth = firebase.auth()
-            user = auth.create_user_with_email_and_password(email, password)
-
-            sign = auth.sign_in_with_email_and_password(email, password)
-            auth.send_email_verification(sign['idToken'])
-            return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
-
-    except Exception as e:
-        # Manejar errores específicos aquí
-        return render(request, 'Inicio_sesion/regisEXI.html', {'error': f'Error: {e}'})
-
-
-def register_company(request):
-    companyName = request.POST.get('companyName')
-    foundationDate = request.POST.get('dateFoundation')
-    email = request.POST.get('email')
-    phone = request.POST.get('phone')
-    country = request.POST.get('country')
-    password = request.POST.get('password')
-
-    print(f"Company Name: {companyName}")
-    print(f"Foundation Date: {foundationDate}")
-    print(f"Email: {email}")
-    print(f"Phone: {phone}")
-    # Create a dictionary with user data
-    user_data = {
-        'companyName': companyName,
-        'foundationDate': foundationDate,
-        'email': email,
-        'phone': phone,
-        'country': country,
-        'password': password,
-    }
-
-
-    try:
-        # Verificar si el correo ya existe
-        email_exists = CDB.check_email_existence(email)
-
-        if email_exists:
-            return HttpResponse('El correo con el que te intentas registrar ya existe en la base de datos')
-        else:
-            # Crear el usuario en la base de datos
-            CDB.create_document('Company', user_data)  # Call the create_document function with the appropriate arguments
-            return render(request, 'Inicio_sesion/regisEXI.html', {'email': email})
-
-    except Exception as e:
-        # Manejar errores específicos aquí
-        return render(request, 'Inicio_sesion/regisEXI.html', {'error': f'Error: {e}'})
+    if request.method == 'GET':
+        return render(request, 'Inicio_sesion/sign_up-company.html')
+    else:
+        companyName = request.POST.get('companyName')
+        foundationDate = request.POST.get('dateFoundation')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        password = request.POST.get('password')
+        country = request.POST.get('country')
+        # Crear una instnancia de la empresa
+        company = Company.objects.create(
+            companyName=companyName,
+            foundationDate=foundationDate,
+            email=email,
+            phone=phone,
+            country=country,
+            password=password  # Considerar la necesidad de hash
+        )
+        company.save()
+        # user_company = User.objects.create_user(username=email, email=email, password=password)
+        # TODO - Utilizar funcion login para logear, crear la cookie, y redireccionar a la view principal
+        return redirect('Formulario:companyView')  # Redirigir a la vista del formulario de empresa
