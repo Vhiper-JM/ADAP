@@ -119,3 +119,5 @@ def signup_business(request):
         # user_company = User.objects.create_user(username=email, email=email, password=password)
         # TODO - Utilizar funcion login para logear, crear la cookie, y redireccionar a la view principal
         return redirect('Formulario:companyView')  # Redirigir a la vista del formulario de empresa
+
+# TODO - Funcion para logout y borrar cookie
