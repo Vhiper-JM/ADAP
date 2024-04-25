@@ -42,6 +42,7 @@
                 </h2>
             </div>
             <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
+                {{ error_message }}
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
@@ -58,7 +59,7 @@
                     </div>
                     <div class="mb-3 text-start">
                         <label for="" class="form-label">Gender </label>
-                        <select id="" class="form-select" name="gender">
+                        <select id="" class="form-select" name="gender" required>
                             <option value="" disabled selected>Select your gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>

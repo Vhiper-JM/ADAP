@@ -17,13 +17,15 @@ class CustomUser(models.Model):
     identification = models.CharField(max_length=20)
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
     nationality = models.CharField(max_length=100)
-    country_residence = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
+    country = models.CharField(max_length=100)
+    birthday = models.DateField()
     email = models.EmailField()
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
     is_entrepreneur = models.BooleanField(default=False)
-    entrepreneurship_name = models.CharField(max_length=100, blank=True, null=True)
+    entrepreneurship = models.CharField(max_length=100, blank=True, null=True)
+    password = models.CharField(max_length=128)  # Consider hashing passwords
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

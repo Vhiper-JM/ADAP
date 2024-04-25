@@ -13,9 +13,6 @@ def index(request):
     """
     return redirect("Inicio_sesion:signin")
 
-# Recordar reemplazar vew login OFICIAL
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 
 def signin(request):
     """
@@ -50,31 +47,44 @@ def signin(request):
             return render(request, 'Inicio_sesion/login.html', context={'error_message': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'})
 
 
-# NO OLVIDAR HACER QUE LOS HTML SE ENVIEN LA INFORMACION A SI MISMAS
 def signup(request):
     if request.method == 'GET':
         return render(request, 'Inicio_sesion/signupuser.html')
     else:
+        email = request.POST.get('email')        
+        existing_user = User.objects.filter(email=email).exists()        
+
+        if existing_user:
+            return render(request, 'Inicio_sesion/signupuser.html', {'error_message': 'El correo electrónico ya está registrado'})
+        
+        # Si no hay un usuario con el mismo correo, proceder con el registro
         first_name = request.POST.get('name')
-        lastName = request.POST.get('surname')
-        userID = request.POST.get('id')
+        last_name = request.POST.get('surname')
+        identification = request.POST.get('id')
         gender = request.POST.get('gender')
         nationality = request.POST.get('nationality')
         phone = request.POST.get('phone')
         country = request.POST.get('country')
         birthday = request.POST.get('birthdate')
-        email = request.POST.get('email')
-        company = request.POST.get('company')
+        company_name = request.POST.get('company')
         position = request.POST.get('position')
-        isEntrepreneur = request.POST.get('isEntrepreneur', "False")
+        is_entrepreneur = request.POST.get('isEntrepreneur', "False")
         entrepreneurship = request.POST.get('entrepreneurship')
         password = request.POST.get('password')
         
-        company = Company.objects.filter(name=company)
+        existing_company = Company.objects.filter(companyName=company_name).exists()
+    # PARA LOS MUCHACHOS DE DOCUMENTACION
+    # Antes de que se puedan registrar los usuarios (empleados), la compañia debe estar registrada
+    # para que el usuario pueda registrarse bajo una compañia
+
+        if not existing_company:
+            return render(request, 'Inicio_sesion/signupuser.html', {'error_message': 'La compañia no existe'})
+          
+        company = Company.objects.filter(companyName=company_name).first()
         custom_user = CustomUser(
             first_name=first_name,
-            last_name=lastName,
-            user_id=userID,
+            last_name=last_name,
+            identification=identification,
             gender=gender,
             nationality=nationality,
             phone=phone,
@@ -83,17 +93,23 @@ def signup(request):
             email=email,
             company=company,
             position=position,
-            is_entrepreneur=isEntrepreneur,
+            is_entrepreneur=is_entrepreneur,
             entrepreneurship=entrepreneurship,
             password=password,
         )
         
         custom_user.save()
 
-        user_custom_user = User.objects.create_user(username=email, email=email, password=password)
-        # TODO - Utilizar funcion login para logear, crear la cookie, y redireccionar a la view principal
-
-        pass
+        # Crear el usuario en Django
+        # user_custom_user = User.objects.create_user(username=email, email=email, password=password)
+        
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('Formulario:companyView')  # Redirigir a la vista principal
+        else:
+            # Manejar el caso de autenticación fallida
+            return render(request, 'Inicio_sesion/signupuser.html', {'error_message': 'Error en la autenticación'})
 
 
 def signup_business(request):
@@ -103,21 +119,41 @@ def signup_business(request):
         companyName = request.POST.get('companyName')
         foundationDate = request.POST.get('dateFoundation')
         email = request.POST.get('email')
+        existing_user = User.objects.filter(email=email).exists()
+        if existing_user:
+            return render(request, 'Inicio_sesion/sign_up-company.html', {'error_message': 'Error en la autenticación'})
+        NIT = request.POST.get('NIT')
         phone = request.POST.get('phone')
         password = request.POST.get('password')
         country = request.POST.get('country')
-        # Crear una instnancia de la empresa
+        
+        # Crear una instancia de la empresa
         company = Company.objects.create(
             companyName=companyName,
             foundationDate=foundationDate,
             email=email,
+            NIT=NIT,
             phone=phone,
             country=country,
             password=password  # Considerar la necesidad de hash
         )
         company.save()
+        
+        # Crear un usuario asociado a la empresa (opcional)
         # user_company = User.objects.create_user(username=email, email=email, password=password)
-        # TODO - Utilizar funcion login para logear, crear la cookie, y redireccionar a la view principal
-        return redirect('Formulario:companyView')  # Redirigir a la vista del formulario de empresa
+        
+        # Autenticar al usuario y redirigir a la vista principal
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('Formulario:companyView')  # Redirigir a la vista del formulario de empresa
+        else:
+            # Manejar el caso de autenticación fallida
+            return render(request, 'Inicio_sesion/sign_up-company.html', {'error_message': 'Error en la autenticación'})
 
-# TODO - Funcion para logout y borrar cookie
+def signout(request):
+    """
+    Vista para cerrar sesión de un usuario.
+    """
+    logout(request)  # Cierra la sesión actual del usuario
+    return redirect('Inicio_sesion:index')  # Redirige a la página de inicio de sesión

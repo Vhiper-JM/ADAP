@@ -8,5 +8,7 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
     path('signup_business/', views.signup_business, name='signup_business'),
+    path('signout/', views.signout, name='signout'),  # URL para la función de logout
+
 
 ]
