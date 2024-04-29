@@ -15,36 +15,34 @@ def index(request):
 
 
 def signin(request):
-    """
-    Args:
-        request: La solicitud HTTP recibida.
-
-    Returns:
-        Una respuesta HTTP que renderiza la página de inicio de sesión o redirige a la página de formulario de usuario.
-
-    Raises:
-        No se producen excepciones en este código.
-    """
     if request.method == 'GET':
-        # Si la solicitud es GET, renderiza la página de inicio de sesión.
         return render(request, 'Inicio_sesion/login.html')
     else:
-        # Si la solicitud no es GET, obtén el correo electrónico y la contraseña del formulario.
         email = request.POST.get('email')
         password = request.POST.get('password')
-        # Autentica al usuario usando el correo electrónico y la contraseña proporcionados.
-        user = authenticate(username=email, password=password)
-        company = Company.objects.filter(email=email)
+
+        # print(f'El correo es {email}')
+        # print(f'La contrasena es {password}')
         
-        if user is not None:
-            # Si el usuario es autenticado correctamente, inicia sesión en la sesión actual.
-            login(request, user)
-            # Redirige a la página de formulario de usuario.
-            return redirect('Formulario:userView')
+        # Verifica a qué tabla pertenece el correo electrónico.
+        if Company.objects.filter(email=email).exists():
+            # Si el correo está en la tabla Inicio_sesion_company, el usuario es una compañía.
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                request.session['user_email'] = email  # Set the user's email in session
+                return redirect('Formulario:companyView')
+            else:
+                return render(request, 'Inicio_sesion/login.html', context={'error_message': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'})
         else:
-            # Si la autenticación falla, podrías manejar el error aquí, como mostrar un mensaje de error.
-            # En este caso, se puede redirigir a la misma página de inicio de sesión con un mensaje de error.
-            return render(request, 'Inicio_sesion/login.html', context={'error_message': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'})
+            # Si el correo está en la tabla Inicio_sesion_customuser, el usuario no es una compañía.
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                request.session['user_email'] = email  # Set the user's email in session
+                return redirect('Formulario:userView')
+            else:
+                return render(request, 'Inicio_sesion/login.html', context={'error_message': 'Credenciales inválidas. Por favor, inténtalo de nuevo.'})
 
 
 def signup(request):
@@ -140,7 +138,7 @@ def signup_business(request):
         company.save()
         
         # Crear un usuario asociado a la empresa (opcional)
-        # user_company = User.objects.create_user(username=email, email=email, password=password)
+        user_company = User.objects.create_user(username=email, email=email, password=password)
         
         # Autenticar al usuario y redirigir a la vista principal
         user = authenticate(username=email, password=password)

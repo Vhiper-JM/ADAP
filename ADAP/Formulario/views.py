@@ -1,46 +1,102 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from Inicio_sesion.models import CustomUser, Company
+from django.contrib.auth.models import User
+
+
+def get_user_info(email):
+    """
+    Función para obtener información del usuario basada en el correo electrónico.
+    """
+    try:
+        # Busca el usuario en la base de datos basado en el correo electrónico
+        user = CustomUser.objects.get(email=email)
+        # Imprime la información del usuario para verificar
+        print(f"User Info: {user.first_name} {user.last_name}, Email: {user.email}, Phone: {user.phone}, Country: {user.country}")
+        # Devuelve un diccionario con la información del usuario
+        return {
+            'name': user.first_name + ' ' + user.last_name,
+            'email': user.email,
+            'phone': user.phone,
+            'country': user.country,
+            # Otros campos de información del usuario según el modelo CustomUser...
+        }
+    except CustomUser.DoesNotExist:
+        print("User not found in the database.")
+        return None  # Usuario no encontrado en la base de datos
+
+def get_company_info(email):
+    """
+    Función para obtener información de la compañía basada en el correo electrónico del usuario.
+    """
+    try:
+        # Busca la compañía en la base de datos basada en el correo electrónico
+        company = Company.objects.get(email=email)
+        # Devuelve un diccionario con la información de la compañía
+        return {
+            'company_name': company.companyName,
+            'foundation_date': company.foundationDate,
+            'email': company.email,
+            'NIT': company.NIT,
+            'phone': company.phone,
+            'country': company.country,
+        }
+    
+    
+    except Company.DoesNotExist:
+        print("Company not found in the database.")
+        return None  # Compañía no encontrada en la base de datos
+
 
 
 def index(request):
     """
-    Index
+    Index view
     """
     return HttpResponse("This is an index page")
 
-# userView view
+def userView(request):
+    """
+    View for userView.html
+    """
+    # Obtén el correo electrónico de la sesión
+    email = request.session.get('user_email')
+    if email:
+        # Obtén información del usuario
+        user_info = get_user_info(email)
+        if user_info:
+            # Pasa la información del usuario a la plantilla para renderizarla
+            return render(request, 'Formulario/en/ViewUser.html', {'user_info': user_info})
+        else:
+            return HttpResponse('Error retrieving user information')
+    else:
+        return HttpResponse('Email not provided in session')
 
-# def userView(request):
-#     # Retrieve email from session
-#     email = request.session.get('user_email')
-#     if email:
-#         # Assuming you have a function to fetch user information based on email from ConexionDB module
-#         user_info = CDB.get_user_info(email)
-#         if user_info:
-#             # Pass the user information to the template for rendering
-#             return render(request, 'Formulario/en/ViewUser.html', {'user_info': user_info})
-#         else:
-#             return HttpResponse('Error al obtener información del usuario')
-#     else:
-#         return HttpResponse('Correo no proporcionado en la sesión')
+def companyView(request):
+    """
+    View for companyView.html
+    """
+    # Obtén el correo electrónico de la sesión
+    email = request.session.get('user_email')
+    # print("User Email in Session:", email)
+    if email:
+        # Obtén información de la compañía
+        company_info = get_company_info(email)
+        if company_info:
+            # Pasa la información de la compañía a la plantilla para renderizarla
+            return render(request, 'Formulario/en/ViewCompany.html', {'company_info': company_info})
+        else:
+            return HttpResponse('Error retrieving company information')
+    else:
+        authenticatable_users = User.objects.filter(password__isnull=False).exclude(password='')
+        print("Authenticatable Users:")
+        for user in authenticatable_users:
+            print(user.username)
+        return HttpResponse('Email not provided in session')
 
-# def companyView(request):
-#     # Retrieve email from session
-#     email = request.session.get('user_email')
-#     if email:
-#         # Assuming you have a function to fetch user information based on email from ConexionDB module
-#         company_info = CDB.get_user_info(email)
-#         if company_info:
-#             # Pass the user information to the template for rendering
-#             return render(request, 'Formulario/en/ViewCompany.html', {'company_info': company_info})
-#         else:
-#             return HttpResponse('Error al obtener información del usuario')
-#     else:
-#         return HttpResponse('Correo no proporcionado en la sesión')
-    
+# Resto de las vistas...
 
-    
+
 def desempContextual(request):
     """
     View for desempenocontextual.html

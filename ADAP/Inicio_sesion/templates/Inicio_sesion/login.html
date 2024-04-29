@@ -31,7 +31,7 @@
                     <img src="{% static 'Inicio_sesion/images/LogoU.png' %}" alt="LogoU">   
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <form class="col-12" method="post">
+                        <form class="col-12" method="POST">
                             {{ error_message }}
                             {% csrf_token %}
                             <h2 class="text-shadow" data-section="form" data-value="title" style="margin-top: 20px;" >Log In</h2>
