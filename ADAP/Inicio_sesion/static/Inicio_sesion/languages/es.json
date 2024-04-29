@@ -1,6 +1,20 @@
 {
     "form": {
-        "title": "Inicio de sesión",
-        "submit-btn": "Iniciar sesión"
+      "title": "Inicio de sesión",
+      "submit-btn": "Iniciar sesión",
+      "email-placeholder": "Correo electrónico",
+      "password-placeholder": "Contraseña",
+      "forgot-password": "¿Olvidaste tu contraseña?",
+      "create-account": "Crear una cuenta",
+      "company-name": "Nombre de la empresa",
+      "date-foundation": "Fecha de fundación",
+      "NIT": "NIT",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "country": "País de residencia",
+      "password": "Contraseña",
+      "terms-conditions": "He leído y acepto los Términos y Condiciones",
+      "register": "Registrar"
     }
-}
+  }
+  

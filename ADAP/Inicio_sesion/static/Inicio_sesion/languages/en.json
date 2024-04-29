@@ -1,6 +1,20 @@
 {
     "form": {
-        "title": "Log In",
-        "submit-btn": "Log In"
+      "title": "Log In",
+      "submit-btn": "Log In",
+      "email-placeholder": "Email",
+      "password-placeholder": "Password",
+      "forgot-password": "Forgot Password?",
+      "create-account": "Create an account",
+      "company-name": "Company Name",
+      "date-foundation": "Date of Foundation",
+      "NIT": "NIT",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country of Residence",
+      "password": "Password",
+      "terms-conditions": "I have read and accept the Terms and Conditions",
+      "register": "Register"
     }
-}
+  }
+  
