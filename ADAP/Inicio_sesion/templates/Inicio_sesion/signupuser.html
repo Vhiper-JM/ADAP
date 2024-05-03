@@ -12,7 +12,10 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
     <link rel="icon" href="">
     {% load static %}
+    {% comment %} Estilos {% endcomment %}    
     <link rel="stylesheet" href="css/styles.css">
+    {% comment %} Scrips JS {% endcomment %}
+    <script src="{% static 'Inicio_sesion/js/language.js' %}" defer></script>
 </head>
 
 <body>
@@ -22,23 +25,24 @@
                 style="width: 100%; height: 950px; margin-left:0%; margin-right: 0%;">
         </div>
         <div class="col-md-8">
-            <div class="container position-relative">
-                <div class="position-absolute top-0 end-0">
-                    <a href="{% url 'Inicio_sesion:signup' %}">
+            <div class="container position-relative" >
+                <div class="flags-container" id="flags">
+                    <div class="flag" data-language="es">
                         <img src="{% static 'Inicio_sesion/images/flag.png' %}" alt="" class="rounded float-end"
                             style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        </div>
                     </a>
-                    <a href="{% url 'Inicio_sesion:signup' %}">
+                    <div class="flag" data-language="en">
                         <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded float-end" alt=""
                             style="width: 5%;">
+                        </div>
                     </a>
                 </div>
             </div>
             <div class="container text-center">
                 <img src="{% static 'Inicio_sesion/images/LogoU.png' %}" alt="LogoU">
-                <h2 class="text-shadow" style="margin-top: 10px; font-size: smaller;">Are you a company? You can
-                    register as a company here:
-                    <a href="{% url 'Inicio_sesion:signup_business' %}">ADAP company registration</a>
+                <h2  class="text-shadow" style="margin-top: 10px; font-size: smaller;" data-section="FSign" data-value="Registro1">Are you a company? You can register as a company:
+                    <a href="{% url 'Inicio_sesion:signup_business' %}" data-section="Fsign" data-value="registroc">Aqui</a>
                 </h2>
             </div>
             <form class="row g-2 mt-3" style="margin-left: 20px; margin-right: 20px;" method="post">
@@ -46,30 +50,30 @@
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Names </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Names">Names </label>
                         <input type="text" id="" class="form-control" name="name" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Surnames </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Surnames">Surnames </label>
                         <input type="text" id="" class="form-control" name="surname" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">ID </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="ID">ID </label>
                         <input type="text" id="" class="form-control" name="id" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Gender </label>
-                        <select id="" class="form-select" name="gender" required>
-                            <option value="" disabled selected>Select your gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                        <label for="" class="form-label" data-section="FSign" data-value="Gender">Gender </label>
+                        <select id="" class="form-select" name="gender">
+                            <option data-section="FSign" data-value="GSelect" value="" disabled selected>Select your gender</option>
+                            <option data-section="FSign" data-value="Gm" value="Male">Male</option>
+                            <option data-section="FSign" data-value="Gf" value="Female">Female</option>
+                            <option data-section="FSign" data-value="Go" value="Other">Other</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Nationality </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Nationality">Nationality </label>
                         <select id="" class="form-select" name="nationality">
-                            <option value="" disabled selected>Select your nationality </option>
+                            <option  data-section="FSign" data-value="NSelect" value="" disabled selected >Select your nationality </option>
                             <option value="Afghan">Afghan </option>
                             <option value="Albanian">Albanian </option>
                             <option value="Algerian">Algerian </option>
@@ -162,17 +166,17 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Phone </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Phone">Phone </label>
                         <input type="text" id="" class="form-control" name="phone" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label" data-section="FSign" data-value="Password">Password</label>
                         <input type="password" id="password" class="form-control" name="password" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Country of Residence</label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Country of Residence">Country of Residence</label>
                         <select id="countrySelect" class="form-select" name="country">
                             <option value="" disabled selected>Select your country of residence</option>
                             <option value="Afghanistan">Afghanistan</option>
@@ -267,21 +271,21 @@
                         </select>                        
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label"> Date of Birth </label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Date of Birth"> Date of Birth </label>
                         <input type="date" id="" class="form-control" name="birthdate" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">E-mail</label>
+                        <label for="" class="form-label" data-section="FSign" data-value="E-mail">E-mail</label>
                         <input type="text" id="" class="form-control" name="email" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Company</label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Company">Company</label>
                         <input type="text" id="" class="form-control" name="company" placeholder="">
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Position in the company</label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Position in the company">Position in the company</label>
                         <select id="" class="form-select" name="position">
-                            <option value="" disabled selected>Select your position</option>
+                            <option value="" disabled selected data-section="FSign" data-value="Position">Select your position</option>
                             <option value="CEO">CEO (Chief Executive Officer)</option>
                             <option value="COO">COO (Chief Operating Officer)</option>
                             <option value="CFO">CFO (Chief Financial Officer)</option>
@@ -303,19 +307,19 @@
                     </div>
                     <div class="mb-3 text-start">
                         <input class="form-check-control" type="checkbox" {% if isEntrepreneur %}checked="checked"{% endif %} id="isEntrepreneurCheckbox" name="isEntrepreneur" value="True">
-                        <label class="form-check-label" for="isEntrepreneurCheckbox">Are you an entrepreneur?</label>
+                        <label class="form-check-label" for="isEntrepreneurCheckbox" data-section="FSign" data-value="Areyou">Are you an entrepreneur?</label>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="" class="form-label">Entrepreneurship</label>
+                        <label for="" class="form-label" data-section="FSign" data-value="Entrepreneurship">Entrepreneurship</label>
                         <input type="text" id="" class="form-control" name="entrepreneurship" placeholder="">
                     </div>
                 </div>
                 <div class="mb-3 text-center">
                     <input class="form-check-control" type="checkbox" value="" id="" name="conditions">
-                    <label class="form-check-label" for="">I have read and accept the Terms and Conditions</label>
+                    <label class="form-check-label" for="" data-section="FSign" data-value="Conditions">I have read and accept the Terms and Conditions</label>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <input type="submit" name="" value="Register" style="background-color: #55CC93;">
+                    <input type="submit" name=""  value="Register" data-section="Fsign" data-value="Register" style="background-color: #55CC93;">
                 </div>
             </form>
         </div>
