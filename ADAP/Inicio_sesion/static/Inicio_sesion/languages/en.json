@@ -1,20 +1,55 @@
 {
     "form": {
-      "title": "Log In",
-      "submit-btn": "Log In",
-      "email-placeholder": "Email",
-      "password-placeholder": "Password",
-      "forgot-password": "Forgot Password?",
-      "create-account": "Create an account",
-      "company-name": "Company Name",
-      "date-foundation": "Date of Foundation",
-      "NIT": "NIT",
-      "email": "Email",
-      "phone": "Phone",
-      "country": "Country of Residence",
-      "password": "Password",
-      "terms-conditions": "I have read and accept the Terms and Conditions",
-      "register": "Register"
+        "title": "Log In",
+        "submit-btn": "Log In"
+    },
+    "placeholder": {
+        "email": "Email",
+        "passwords": "Password"
+    },
+    "links": {
+        "forgot-password": "Forgot Password?",
+        "create-account": "Create an account"
+        
+    },
+    "FSign":{
+        "Names": "Names",
+        "Surnames": "Surnames",
+        "ID": "ID",
+        "Gender": "Gender",
+        "GSelect":"Select your gender",
+        "Gm":"Male",
+        "Gf":"Female",
+        "Go":"Other",
+        "Nationality": "Nationality",
+        "NSelect": "Select your nationality",
+        "Phone": "Phone",
+        "Password": "Password",
+        "Country of Residence": "Country of Residence",
+        "RSelect": "Select your country of residence",
+        "Date of Birth": "Date of Birth",
+        "E-mail": "E-mail",
+        "Company": "Company",
+        "Position in the company": "Position in the company",
+        "Position":"Select your position",
+        "Areyou": "Are you an entrepreneur?",
+        "Entrepreneurship": "Entrepreneurship",
+        "Conditions": "I have read and accept the Terms and Conditions",
+        "Register": "Register",
+        "Registro1": "Are you a company? You can register as a company :",
+        "registroc":"Here",
+        "Registro2": "Are you not a company? You can register as a user here:",
+        "Date of fundation":"Date of fundation",
+        "CName":"Company Name"
+
+    },
+    "Verificacion":{
+        "AUT": "Two-Step Authentication",
+        "security-code-label": "Enter security code sent to your email:",
+        "password-label": "Password:",
+        "terms-label": "I accept the terms and conditions",
+        "submit-btnAUT": "Sign In"
+
     }
   }
   

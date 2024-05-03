@@ -1,20 +1,54 @@
 {
     "form": {
-      "title": "Inicio de sesión",
-      "submit-btn": "Iniciar sesión",
-      "email-placeholder": "Correo electrónico",
-      "password-placeholder": "Contraseña",
-      "forgot-password": "¿Olvidaste tu contraseña?",
-      "create-account": "Crear una cuenta",
-      "company-name": "Nombre de la empresa",
-      "date-foundation": "Fecha de fundación",
-      "NIT": "NIT",
-      "email": "Correo electrónico",
-      "phone": "Teléfono",
-      "country": "País de residencia",
-      "password": "Contraseña",
-      "terms-conditions": "He leído y acepto los Términos y Condiciones",
-      "register": "Registrar"
+        "title": "Iniciar sesión",
+        "submit-btn": "Iniciar sesión"
+    },
+    "placeholder": {
+        "email": "Correo electrónico",
+        "password": "Contraseña"
+    },
+    "links": {
+        "forgot-password": "¿Olvidaste tu contraseña?",
+        "create-account": "Crear una cuenta"
+    },
+    "FSign":{
+        "Names": "Nombres",
+        "Surnames": "Apellidos",
+        "ID": "Documento de identidad",
+        "Gender": "Género",
+        "GSelect":"Selecciona tu genero",
+        "Gm":"Masculino",
+        "Gf":"Femenino",
+        "Go":"Otro",
+        "Nationality": "Nacionalidad",
+        "NSelect":"Seleccione su nacionalidad",
+        "Phone": "Teléfono",
+        "Password": "Contraseña",
+        "Country of Residence": "País de residencia",
+        "RSelect": "Seleccione su pais de residencia",
+        "Date of Birth": "Fecha de nacimiento",
+        "E-mail": "Correo electrónico",
+        "Company": "Empresa",
+        "Position in the company": "Cargo en la empresa",
+        "Position":"Seleccione su cargo",
+        "Areyou": "¿Eres emprendedor?",
+        "Entrepreneurship": "Emprendimiento",
+        "Conditions": "He leído y acepto los Términos y Condiciones",
+        "Register": "Registrarse",
+        "registroc":"Aqui",
+        "Registro1": "¿Eres una compañia? Registrate como compañia ",
+        "Registro2": "¿No eres una compañia? Registrate como usuario aqui:",
+        "Date of fundation":"Fecha de fundacion",
+        "CName":"Nombre de la empresa"
+
+     
+    },
+    "Verificacion":{
+        "AUT": "Autenticación de Dos Pasos",
+        "security-code-label": "Ingrese el código de seguridad enviado a su correo electrónico:",
+        "password-label": "Contraseña:",
+        "terms-label": "Acepto los términos y condiciones",
+        "submit-btn": "Iniciar Sesión"
+
     }
-  }
-  
+}
