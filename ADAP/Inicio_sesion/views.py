@@ -120,7 +120,9 @@ def signup_business(request):
         existing_user = User.objects.filter(email=email).exists()
         if existing_user:
             return render(request, 'Inicio_sesion/sign_up-company.html', {'error_message': 'Error en la autenticación'})
-        NIT = request.POST.get('NIT')
+        # NIT = request.POST.get('NIT')
+        # El siguiente campo es con informacion fija porque en front no se ha definido el campo
+        NIT = "1001213654"
         phone = request.POST.get('phone')
         password = request.POST.get('password')
         country = request.POST.get('country')

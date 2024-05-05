@@ -26,26 +26,23 @@ def get_user_info(email):
         return None  # Usuario no encontrado en la base de datos
 
 def get_company_info(email):
-    """
-    Función para obtener información de la compañía basada en el correo electrónico del usuario.
-    """
     try:
         # Busca la compañía en la base de datos basada en el correo electrónico
         company = Company.objects.get(email=email)
+        
         # Devuelve un diccionario con la información de la compañía
         return {
-            'company_name': company.companyName,
-            'foundation_date': company.foundationDate,
             'email': company.email,
+            'companyName': company.companyName,
+            'foundationDate': company.foundationDate,
             'NIT': company.NIT,
             'phone': company.phone,
             'country': company.country,
         }
-    
-    
     except Company.DoesNotExist:
         print("Company not found in the database.")
         return None  # Compañía no encontrada en la base de datos
+
 
 
 
