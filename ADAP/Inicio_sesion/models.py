@@ -5,7 +5,7 @@ class Company(models.Model):
     companyName = models.CharField(max_length=100)
     foundationDate = models.DateField()
     email = models.EmailField(unique=True)
-    NIT = models.CharField(max_length=100)
+    NIT = models.CharField(max_length=100, default="1111111111")
     phone = models.CharField(max_length=15)
     country = models.CharField(max_length=100)
     password = models.CharField(max_length=128)  # Consider hashing passwords

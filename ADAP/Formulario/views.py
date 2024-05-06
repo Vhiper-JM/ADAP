@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from Inicio_sesion.models import CustomUser, Company
+from Formulario.models import Form, Section
 from django.contrib.auth.models import User
 
 
@@ -90,6 +91,62 @@ def companyView(request):
         for user in authenticatable_users:
             print(user.username)
         return HttpResponse('Email not provided in session')
+    
+def editProfile(request):
+    return render(request, 'Formulario/en/tempEditProfile.html')
+    
+def uploadProfilePicture(request):
+    return HttpResponse("You are trying to upload a picture")
+
+    
+def createFormView(request):
+    if request.method == 'POST':
+    # Handle POST request to render the create form view
+        user_email = request.session.get('user_email')
+        company_info = Company.objects.get(email=user_email)
+        return render(request, 'Formulario/en/tempCreateForm.html', {'company_info': company_info})
+    else:
+
+        # Redirect to a error page or reload the current page
+        return HttpResponse('Error entering form view')  # Assuming 'dashboard' is the URL name for the dashboard view
+
+from django.shortcuts import render
+from .models import Form
+
+def createForm(request):
+    if request.method == 'POST':
+        # Obtener los datos del formulario enviado por el usuario
+        title = request.POST.get('title')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        selected_sections = request.POST.getlist('selected_sections')  # Obtener las secciones seleccionadas
+        django_user = request.user  # Assuming request.user is the Django user
+
+        # Obtener la compañía autenticada actualmente
+        company = get_object_or_404(Company, email=django_user.email)
+
+        # Crear el formulario con los datos proporcionados
+        form = Form.objects.create(
+            title=title,
+            company=company,
+            start_date=start_date,
+            end_date=end_date,
+        )
+        
+
+        # Asignar las secciones seleccionadas al formulario
+        for section_name in selected_sections:
+            section = Section.objects.get(name=section_name)
+            form.sections.add(section)
+
+        # Renderizar la plantilla HTML con los detalles del formulario creado
+        return render(request, 'Formulario/en/tempFormView.html', {'form': form})
+
+    # Lógica para renderizar la página de creación de formulario si no es una solicitud POST
+    return render(request, 'Formulario/en/tempCreateForm.html')
+
+
+
 
 # Resto de las vistas...
 
