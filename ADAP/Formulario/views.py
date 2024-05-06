@@ -64,7 +64,7 @@ def userView(request):
         user_info = get_user_info(email)
         if user_info:
             # Pasa la información del usuario a la plantilla para renderizarla
-            return render(request, 'Formulario/en/ViewUser.html', {'user_info': user_info})
+            return render(request, 'Formulario/ViewUser.html', {'user_info': user_info})
         else:
             return HttpResponse('Error retrieving user information')
     else:
@@ -82,7 +82,7 @@ def companyView(request):
         company_info = get_company_info(email)
         if company_info:
             # Pasa la información de la compañía a la plantilla para renderizarla
-            return render(request, 'Formulario/en/ViewCompany.html', {'company_info': company_info})
+            return render(request, 'Formulario/ViewCompany.html', {'company_info': company_info})
         else:
             return HttpResponse('Error retrieving company information')
     else:
@@ -93,7 +93,7 @@ def companyView(request):
         return HttpResponse('Email not provided in session')
     
 def editProfile(request):
-    return render(request, 'Formulario/en/tempEditProfile.html')
+    return render(request, 'Formulario/tempEditProfile.html')
     
 def uploadProfilePicture(request):
     return HttpResponse("You are trying to upload a picture")
@@ -104,7 +104,7 @@ def createFormView(request):
     # Handle POST request to render the create form view
         user_email = request.session.get('user_email')
         company_info = Company.objects.get(email=user_email)
-        return render(request, 'Formulario/en/tempCreateForm.html', {'company_info': company_info})
+        return render(request, 'Formulario/tempCreateForm.html', {'company_info': company_info})
     else:
 
         # Redirect to a error page or reload the current page
@@ -140,10 +140,10 @@ def createForm(request):
             form.sections.add(section)
 
         # Renderizar la plantilla HTML con los detalles del formulario creado
-        return render(request, 'Formulario/en/tempFormView.html', {'form': form})
+        return render(request, 'Formulario/tempFormView.html', {'form': form})
 
     # Lógica para renderizar la página de creación de formulario si no es una solicitud POST
-    return render(request, 'Formulario/en/tempCreateForm.html')
+    return render(request, 'Formulario/tempCreateForm.html')
 
 
 

@@ -1,0 +1,21 @@
+{
+    "title": {
+        "page-title": "ADAP"
+    },
+    "header": {
+        "contact-us": "Contáctenos"
+    },
+    "profile": {
+        "company-name": "",
+        "foundation-date": "Fecha de Fundación:",
+        "email": "Correo Electrónico:",
+        "phone": "Teléfono:",
+        "country-residence": "País de Residencia:"
+    },
+    "table": {
+        "employees-title": "Empleados",
+        "name-title": "Nombres y Apellidos",
+        "position-title": "Cargo",
+        "evaluations-title": "Evaluaciones Habilitadas"
+    }
+}
