@@ -79,7 +79,9 @@ def companyView(request):
     # print("User Email in Session:", email)
     if email:
         # Obtén información de la compañía
-        company_info = get_company_info(email)
+        django_user = request.user  # Assuming request.user is the Django user
+        company_info = get_object_or_404(Company, email=django_user.email)
+        print(company_info.email)
         if company_info:
             # Pasa la información de la compañía a la plantilla para renderizarla
             return render(request, 'Formulario/ViewCompany.html', {'company_info': company_info})
