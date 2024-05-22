@@ -16,8 +16,13 @@
             {% for section in form.sections.all %}
                 <li>{{ section.name }}</li>
             {% endfor %}
+        </ul>  
+        <p>Lista de empleados autorizados:</p>
+        <ul>
+            {% for employee in form.authorized_employees.all %}
+                <li>{{ employee }}</li>
+            {% endfor %}
         </ul>
-        <!-- Otros detalles del formulario si es necesario -->
     </div>
 </body>
 </html>

@@ -24,10 +24,13 @@ def signin(request):
         # print(f'El correo es {email}')
         # print(f'La contrasena es {password}')
         
+        
         # Verifica a qué tabla pertenece el correo electrónico.
         if Company.objects.filter(email=email).exists():
             # Si el correo está en la tabla Inicio_sesion_company, el usuario es una compañía.
             user = authenticate(request, username=email, password=password)
+            # Obtener toda la información de la compañía
+            # Listado completo de usuarios empleados de la compañía. Donde se filtra por el nombre de la compañía. El atributo de compaiania de la tabla CustomUser es una llave foranea a la tabla Company
             if user is not None:
                 login(request, user)
                 request.session['user_email'] = email  # Set the user's email in session
@@ -99,7 +102,7 @@ def signup(request):
         custom_user.save()
 
         # Crear el usuario en Django
-        # user_custom_user = User.objects.create_user(username=email, email=email, password=password)
+        user_custom_user = User.objects.create_user(username=email, email=email, password=password)
         
         user = authenticate(username=email, password=password)
         if user is not None:

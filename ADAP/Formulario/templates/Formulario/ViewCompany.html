@@ -87,12 +87,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for employee in company_info.employees %}
-                            <tr>
-                                <td>{{ employee.full_name }}</td>
-                                <td>{{ employee.position }}</td>
-                            </tr>
-                            {% endfor %}
+                        {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.position }}</td>
+                        </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -109,18 +109,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            {% for form in forms %}
+                        <tr>
+                            <td>{{ form.title }}</td>
+                            <td>{{ form.end_date }}</td>
+                        </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

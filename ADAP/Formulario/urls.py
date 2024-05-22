@@ -12,10 +12,4 @@ urlpatterns = [
     path('createForm/', views.createForm, name='createForm'),
     path('editProfile/', views.editProfile, name='editProfile'),
     path('uploadProfilePicture/', views.uploadProfilePicture, name='uploadProfilePicture'),
-    path('desempcontextual/', views.desempContextual, name='desempcontextual'),
-    path('desempcontraproducente/', views.desempContraproducente, name='desempcontraproducente'),
-    path('desemptareas/', views.desempTareas, name='desempdetareas'),
-    path('estraconstructivas/', views.estraConstructivas, name='estraconstructivas'),
-    path('estracomportamiento/', views.estraComportamiento, name='estradecomportamiento'),
-    path('estrarecompensa/', views.estraRecompensa, name='estraderecompensa'),
 ]

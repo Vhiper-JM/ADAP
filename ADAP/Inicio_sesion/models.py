@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Agregar NIT a la clase
 class Company(models.Model):
     companyName = models.CharField(max_length=100)
@@ -26,6 +27,7 @@ class CustomUser(models.Model):
     is_entrepreneur = models.BooleanField(default=False)
     entrepreneurship = models.CharField(max_length=100, blank=True, null=True)
     password = models.CharField(max_length=128)  # Consider hashing passwords
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
