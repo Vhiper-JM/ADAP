@@ -27,9 +27,13 @@
             <div class="text-center">
                 <div class="avatar-container">
                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 20px; border-radius: 50%;">
-                    <input type="file" class="text-center center-block file-upload" style="margin-left: 85px;">
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'Formulario:uploadProfilePicture' %}">
+                        {% csrf_token %}
+                        <input type="file" name="profile_picture" class="text-center center-block file-upload" style="margin-left: 85px;">
+                        <button type="submit" style="background-color: #43A941; margin-top: 10px;">Upload Profile Picture</button>
+                    </form>
                     <div class="form-group">
-                        <label for="email" style="font-size: 30px; align-items: center;">{{ user_info.firstName }} {{ user_info.lastName }}</label>
+                        <label for="email" style="font-size: 30px; align-items: center;">{{ user_info.first_name }} {{ user_info.last_name }}</label>
                     </div>
                 </div>
                 <div class="tab-content" style="margin-top: 10px; margin-left: 50px; text-align: start;">
@@ -38,7 +42,7 @@
                             <label for="email">Email: {{ user_info.email }}</label>
                         </div>
                         <div class="form-group">
-                            <label for="identification">Identification: {{ user_info.userID }}</label>
+                            <label for="identification">Identification: {{ user_info.identification }}</label>
                         </div>
                         <div class="form-group">
                             <label for="nationality">Nationality: {{ user_info.nationality }}</label>
@@ -85,18 +89,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            {% for form in user_info.forms %}
+                        <tr>
+                            <td>{{ form.title }}</td>
+                            <td>{{ form.end_date }}</td>
+                            <td>
+                                <form action="{% url 'Formulario:userFormView' %}?form_title={{ form.title }}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background-color: #43A941; color: white;">Access Form</button>
+                                </form>
+                            </td>
+                        </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -113,17 +117,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
+                            {% for form in user_info.unanswered_forms %}
+                                <tr>
+                                    <td>{{ form.title }}</td>
+                                    <td>{{ form.end_date }}</td>
+                                    <td>
+                                        <form action="{% url 'Formulario:userFormView' %}?form_title={{ form.title }}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" style="background-color: #43A941; color: white;">Access Form</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                             </tr>
                         </tbody>
                     </table>

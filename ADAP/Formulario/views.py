@@ -5,30 +5,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from Inicio_sesion.models import CustomUser, Company
 from Formulario.models import Form, Section, FormSection
 from django.contrib.auth.models import User
+from .models import Form, Question, Response
 
 
-def get_user_info(email):
-    """
-    Función para obtener información del usuario basada en el correo electrónico.
-    """
-    try:
-        # Busca el usuario en la base de datos basado en el correo electrónico
-        user = CustomUser.objects.get(email=email)
-        # Imprime la información del usuario para verificar
-        print(
-            f"User Info: {user.first_name} {user.last_name}, Email: {user.email}, Phone: {user.phone}, Country: {user.country}"
-        )
-        # Devuelve un diccionario con la información del usuario
-        return {
-            "name": user.first_name + " " + user.last_name,
-            "email": user.email,
-            "phone": user.phone,
-            "country": user.country,
-            # Otros campos de información del usuario según el modelo CustomUser...
-        }
-    except CustomUser.DoesNotExist:
-        print("User not found in the database.")
-        return None  # Usuario no encontrado en la base de datos
 
 
 
@@ -46,11 +25,39 @@ def userView(request):
     # Obtén el correo electrónico de la sesión
     email = request.session.get("user_email")
     if email:
-        # Obtén información del usuario
-        user_info = get_user_info(email)
+        # Obten informacion del usuario
+        user_info = CustomUser.objects.get(email=email)        
+        # Convertir la información del usuario en un diccionario para poder pasarla a la plantilla
+        
+        # Obtener el listado de formularios a los que el usuario tiene acceso
+        forms = Form.objects.filter(authorized_employees=user_info)
+        # Convertir el queryset de formularios en una lista de diccionarios con título y fecha de finalización para poder pasarlo a la plantilla
+        forms = [{"title": form.title, "end_date": form.end_date} for form in forms]
+        print("Forms:", forms)
+        
+        responses = Response.objects.filter(employee=user_info)
+        
+        # Unanswered forms
+        unanswered_forms = Form.objects.exclude(responses__employee=user_info)
+        
+        user_info_dict = {
+            "first_name": user_info.first_name,
+            "last_name": user_info.last_name,
+            "identification": user_info.identification,
+            "gender": user_info.gender,
+            "nationality": user_info.nationality,
+            "country": user_info.country,
+            "birthday": user_info.birthday,
+            "email": user_info.email,
+            "company": user_info.company.companyName,
+            "position": user_info.position,
+            "phone": user_info.phone,
+            "forms": forms,
+            responses: responses
+        }
         if user_info:
             # Pasa la información del usuario a la plantilla para renderizarla
-            return render(request, "Formulario/ViewUser.html", {"user_info": user_info})
+            return render(request, "Formulario/ViewUser.html", {"user_info": user_info_dict})
         else:
             return HttpResponse("Error retrieving user information")
     else:
@@ -127,11 +134,6 @@ def createFormView(request):
             "Error entering form view"
         )  # Assuming 'dashboard' is the URL name for the dashboard view
 
-
-from django.shortcuts import render
-from .models import Form
-
-
 def createForm(request):
     if request.method == "POST":
         # Obtener los datos del formulario enviado por el usuario
@@ -190,3 +192,48 @@ def createForm(request):
     # Lógica para renderizar la página de creación de formulario si no es una solicitud POST
     return render(request, "Formulario/tempCreateForm.html")
 
+
+def userFormView(request):
+    form_title = request.GET.get('form_title')  # Retrieve form_title from query parameters
+    form = Form.objects.get(title=form_title)
+    print("Form:", form)
+    # Turn form into a dictionary to pass it to the template
+    form = {
+        "title": form.title,
+        "company": form.company.companyName,
+        "start_date": form.start_date,
+        "end_date": form.end_date,
+        "sections": form.sections.all(),
+    }
+    print("Form:", form)    
+    options = [1, 2, 3, 4, 5]  # List of options
+    
+    context = {
+        'form': form,
+        'range_1_to_5': list(range(1, 6)),
+
+    }
+    return render(request, 'Formulario/tempUserFormView.html', {"context": context})
+
+def submitForm(request):
+    if request.method == 'POST':
+        print("Se recibio un POST")
+        for key, value in request.POST.items():
+            if key.startswith('response_'):
+                _, form_id, section_id, question_id = key.split('_')
+                print(f"Form ID: {form_id}, Section ID: {section_id}, Question ID: {question_id}, Answer: {value}")
+                # Uncomment the following lines to save the responses
+                section = Section.objects.get(id=section_id)
+                question = Question.objects.get(id=question_id)
+                form = Form.objects.get(title=form_id)
+                employee = CustomUser.objects.get(email=request.user.email)
+                Response.objects.create(
+                    employee=employee,
+                    form=form,
+                    section=section,
+                    question=question,
+                    answer=value
+                )
+        return redirect('Formulario:userView')
+
+        

@@ -12,4 +12,6 @@ urlpatterns = [
     path('createForm/', views.createForm, name='createForm'),
     path('editProfile/', views.editProfile, name='editProfile'),
     path('uploadProfilePicture/', views.uploadProfilePicture, name='uploadProfilePicture'),
+    path('userFormView/', views.userFormView, name='userFormView'),
+    path('submitForm/', views.submitForm, name='submitForm'),
 ]

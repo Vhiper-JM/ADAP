@@ -20,7 +20,7 @@
         <p>Lista de empleados autorizados:</p>
         <ul>
             {% for employee in form.authorized_employees.all %}
-                <li>{{ employee }}</li>
+                <li>{{ employee.name }}</li>
             {% endfor %}
         </ul>
     </div>
