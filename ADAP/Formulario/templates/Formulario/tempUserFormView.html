@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ context.form.title }}</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .question-container {
+            margin-bottom: 40px;
+        }
+        .question-description {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .answer-options {
+            display: flex;
+        }
+        .answer-option {
+            margin-right: 10px;
+        }
+        h1 {
+            text-align: center;
+            padding: 3%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        
+        <h2>Company: {{ context.form.company }}</h2>
+        <h2>Start Date: {{ context.form.start_date }}</h2>
+        <h2>End Date: {{ context.form.end_date }}</h2>
+
+        <h1>{{ context.form.title }}</h1>
+        
+        <form action="{% url 'Formulario:submitForm' %}" method="POST">
+            {% csrf_token %}
+            {% for section in context.form.sections %}
+                <div class="section-title">{{ section.name }}</div>
+                {% for question in section.questions.all %}
+                    <div class="question-container">
+                        <div class="question-description">{{ question.description }}</div>
+                        <div class="answer-options">
+                            <div class="options">
+                                {% for i in context.range_1_to_5 %}
+                                <label><input type="radio" name="response_{{ context.form.title }}_{{ section.id }}_{{ question.id }}" value="{{ i }}"> {{ i }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
