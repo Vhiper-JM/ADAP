@@ -29,17 +29,37 @@ def userView(request):
         user_info = CustomUser.objects.get(email=email)        
         # Convertir la información del usuario en un diccionario para poder pasarla a la plantilla
         
-        # Obtener el listado de formularios a los que el usuario tiene acceso
-        forms = Form.objects.filter(authorized_employees=user_info)
-        # Convertir el queryset de formularios en una lista de diccionarios con título y fecha de finalización para poder pasarlo a la plantilla
-        forms = [{"title": form.title, "end_date": form.end_date} for form in forms]
-        print("Forms:", forms)
-        
+        # Unanswered forms
+        # Obtener todas las respuestas asociadas al usuario
         responses = Response.objects.filter(employee=user_info)
         
-        # Unanswered forms
-        unanswered_forms = Form.objects.exclude(responses__employee=user_info)
+        # Obtener el listado de formularios a los que el usuario tiene acceso y que no ha respondido, es decir, que no tienen una respuesta asociada
+        forms = Form.objects.filter(authorized_employees=user_info)
+        completed_forms = []  # Create an empty list for completed forms
+        #print("All Forms:", forms)
+        for form in forms:
+            if form.id in responses.values_list("form_id", flat=True):
+                forms = forms.exclude(id=form.id)
+                completed_forms.append(form)  # Add the excluded form to the completed_forms list
+        #print("Incomplete Forms:", forms)
+        #print("Completed Forms:", completed_forms)
+            
+            
         
+        # Convertir el queryset de formularios en una lista de diccionarios con título y fecha de finalización para poder pasarlo a la plantilla
+        forms = [{"title": form.title, "end_date": form.end_date} for form in forms]
+        #print("Forms:", forms)
+        # Obtener todos los registros de respuestas asociados al usuario
+        responses = Response.objects.filter(employee=user_info)
+        # Agregar a la lista de pending_forms todo formulario que no tenga una respuesta asociada
+        pending_forms = Form.objects.filter(authorized_employees=user_info).exclude(id__in=responses.values_list("form_id", flat=True))
+        # print("Pending Forms:", pending_forms)
+        # Agregar a la lista de completed_forms todo formulario que tenga una respuesta asociada
+        completed_forms = Form.objects.filter(authorized_employees=user_info).filter(id__in=responses.values_list("form_id", flat=True))
+        # print("Completed Forms:", completed_forms)
+
+        #print("Responses:", responses)
+
         user_info_dict = {
             "first_name": user_info.first_name,
             "last_name": user_info.last_name,
@@ -53,7 +73,9 @@ def userView(request):
             "position": user_info.position,
             "phone": user_info.phone,
             "forms": forms,
-            responses: responses
+            "responses": responses,
+            "pending_forms": pending_forms,
+            "completed_forms": completed_forms
         }
         if user_info:
             # Pasa la información del usuario a la plantilla para renderizarla
@@ -70,7 +92,7 @@ def companyView(request):
     """
     # Obtén el correo electrónico de la sesión
     email = request.session.get("user_email")
-    # print("User Email in Session:", email)
+    # #print("User Email in Session:", email)
     if email:
         # Obtén información de la compañía
         company = Company.objects.get(email=email)
@@ -81,7 +103,7 @@ def companyView(request):
             {"name": employee.first_name + " " + employee.last_name, "position": employee.position}
             for employee in employees
         ]
-        print("Employees:", employees)
+        #print("Employees:", employees)
         # Obten todos los formularios de la compañía
         forms = Form.objects.filter(company=company)
         # Turn the forms queryset into a list of dictionaries with title and end date so it can be passed to the template
@@ -95,7 +117,7 @@ def companyView(request):
         
         if company:
             # Pasa la información de la compañía a la plantilla para renderizarla
-            print("Context:", {"company_info": company, "employees": employees})
+            #print("Context:", {"company_info": company, "employees": employees})
             return render(
                 request, "Formulario/ViewCompany.html", context
             )
@@ -105,7 +127,7 @@ def companyView(request):
         authenticatable_users = User.objects.filter(password__isnull=False).exclude(
             password=""
         )
-        print("Authenticatable Users:")
+        #print("Authenticatable Users:")
         for user in authenticatable_users:
             print(user.username)
         return HttpResponse("Email not provided in session")
@@ -137,27 +159,55 @@ def createFormView(request):
 def createForm(request):
     if request.method == "POST":
         # Obtener los datos del formulario enviado por el usuario
+        #print("ENTRANDO A CREAR FORMULARIO")
         title = request.POST.get("title")
+        #print("Title:", title)
         start_date = request.POST.get("start_date")
+        #print("Start Date:", start_date)
         end_date = request.POST.get("end_date")
+        #print("End Date:", end_date)
         selected_sections = request.POST.getlist(
             "selected_sections[]"
         )  # Obtener las secciones seleccionadas
-        print("Selected Sections:", selected_sections)
+        
+        
+        #print("Selected Sections:", selected_sections)
         django_user = request.user  # Assuming request.user is the Django user
-
         # Obtener la compañía autenticada actualmente
         company = get_object_or_404(Company, email=django_user.email)
 
         # Convertir el JSON de empleados autorizados a una lista de correos electrónicos
         employee_emails_json = request.POST.get("employee_emails")
         # Imprimir la lista completa de correos electrónicos para verificar
-        print("Employee Emails JSON:", employee_emails_json)
         employee_emails = (
             json.loads(employee_emails_json) if employee_emails_json else []
         )
-        print("Employee Emails List:", employee_emails)
 
+        # Validar que la fecha de finalización no sea anterior a la fecha de inicio
+        if end_date < start_date:
+            response = HttpResponse("End date cannot be before start date")
+            response['X-Error-Type'] = 'date_mismatch'
+            return response
+
+        # Validar que la compañía solo pueda asignar empleados registrados bajo ella
+        unregistered_employees = set(employee_emails) - set(company.customuser_set.values_list('email', flat=True))
+        if unregistered_employees:
+            response = HttpResponse(f"The following employees are not registered under the company: {', '.join(unregistered_employees)}")
+            response['X-Error-Type'] = 'unregistered_employees'
+            return response
+
+        # Validar que se hayan seleccionado al menos una sección para el formulario
+        if selected_sections == []:
+            response = HttpResponse("Cannot create a form without sections")
+            response['X-Error-Type'] = 'no_sections_selected'
+            return response
+
+        # Validar que se haya proporcionado un título para el formulario
+        if title == "":
+            response = HttpResponse("Cannot create a form without a title")
+            response['X-Error-Type'] = 'no_title'
+            return response
+        
         # Crear el formulario con los datos proporcionados
         form = Form.objects.create(
             title=title,
@@ -169,10 +219,12 @@ def createForm(request):
         # Agregar secciones seleccionadas al formulario a partir del identificador de la sección
         sections = Section.objects.filter(id__in=selected_sections)
         form.sections.set(sections)
+        #print(f"Secciones seleccionadas y agregadas: {sections}")
 
         # Agregar empleados autorizados al formulario
         authorized_employees = CustomUser.objects.filter(email__in=employee_emails)
         form.authorized_employees.set(authorized_employees)
+        #print(f'Empleados autorizados: {authorized_employees}')
 
         # Crear relaciones entre el formulario y las secciones seleccionadas
         for section in sections:
@@ -181,6 +233,9 @@ def createForm(request):
 
         # Guardar el formulario y redirigir o renderizar según sea necesario
         form.save()
+        #print("Formulario creado:", form)
+        # Mostrar todos los atributos del formulario creado
+        #print(f"Formulario creado: {form.title}, {form.company}, {form.start_date}, {form.end_date}, {form.sections.all()}, {form.authorized_employees.all()}")
 
         # Renderizar la plantilla HTML con los detalles del formulario creado
         return render(
@@ -189,14 +244,14 @@ def createForm(request):
             {"form": form},
         )
 
-    # Lógica para renderizar la página de creación de formulario si no es una solicitud POST
+    # Logic to render the create form page if it is not a POST request or if the form is not valid
     return render(request, "Formulario/tempCreateForm.html")
 
 
 def userFormView(request):
     form_title = request.GET.get('form_title')  # Retrieve form_title from query parameters
     form = Form.objects.get(title=form_title)
-    print("Form:", form)
+    #print("Form:", form)
     # Turn form into a dictionary to pass it to the template
     form = {
         "title": form.title,
@@ -205,7 +260,7 @@ def userFormView(request):
         "end_date": form.end_date,
         "sections": form.sections.all(),
     }
-    print("Form:", form)    
+    #print("Form:", form)    
     options = [1, 2, 3, 4, 5]  # List of options
     
     context = {
@@ -217,11 +272,11 @@ def userFormView(request):
 
 def submitForm(request):
     if request.method == 'POST':
-        print("Se recibio un POST")
+        #print("Se recibio un POST")
         for key, value in request.POST.items():
             if key.startswith('response_'):
                 _, form_id, section_id, question_id = key.split('_')
-                print(f"Form ID: {form_id}, Section ID: {section_id}, Question ID: {question_id}, Answer: {value}")
+                #print(f"Form ID: {form_id}, Section ID: {section_id}, Question ID: {question_id}, Answer: {value}")
                 # Uncomment the following lines to save the responses
                 section = Section.objects.get(id=section_id)
                 question = Question.objects.get(id=question_id)

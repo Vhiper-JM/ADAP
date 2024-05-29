@@ -117,16 +117,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for form in user_info.unanswered_forms %}
+                            {% for form in user_info.completed_forms %}
                                 <tr>
                                     <td>{{ form.title }}</td>
-                                    <td>{{ form.end_date }}</td>
+                                    <td>{{ form.start_date }}</td>
                                     <td>
-                                        <form action="{% url 'Formulario:userFormView' %}?form_title={{ form.title }}" method="post">
-                                            {% csrf_token %}
-                                            <button type="submit" style="background-color: #43A941; color: white;">Access Form</button>
-                                        </form>
-                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
