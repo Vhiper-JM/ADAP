@@ -59,20 +59,20 @@ def signup(request):
             return render(request, 'Inicio_sesion/signupuser.html', {'error_message': 'El correo electrónico ya está registrado'})
         
         # Si no hay un usuario con el mismo correo, proceder con el registro
-        first_name = request.POST.get('name')
-        last_name = request.POST.get('surname')
-        identification = request.POST.get('id')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        identification = request.POST.get('identification')
         gender = request.POST.get('gender')
         nationality = request.POST.get('nationality')
         phone = request.POST.get('phone')
         country = request.POST.get('country')
-        birthday = request.POST.get('birthdate')
+        birthday = request.POST.get('birthday')
         company_name = request.POST.get('company')
         position = request.POST.get('position')
         is_entrepreneur = request.POST.get('isEntrepreneur', "False")
         entrepreneurship = request.POST.get('entrepreneurship')
         password = request.POST.get('password')
-        
+    
         existing_company = Company.objects.filter(companyName=company_name).exists()
     # PARA LOS MUCHACHOS DE DOCUMENTACION
     # Antes de que se puedan registrar los usuarios (empleados), la compañia debe estar registrada
@@ -121,7 +121,10 @@ def signup_business(request):
         foundationDate = request.POST.get('dateFoundation')
         email = request.POST.get('email')
         existing_user = User.objects.filter(email=email).exists()
-        if existing_user:
+        # Verificar si ya existe una empresa con el mismo nombre
+        existing_name = Company.objects.filter(companyName=companyName).exists()
+        
+        if existing_user or existing_name:
             return render(request, 'Inicio_sesion/sign_up-company.html', {'error_message': 'Error en la autenticación'})
         # NIT = request.POST.get('NIT')
         # El siguiente campo es con informacion fija porque en front no se ha definido el campo

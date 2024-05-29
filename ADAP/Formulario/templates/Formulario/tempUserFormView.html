@@ -60,7 +60,7 @@
                         <div class="answer-options">
                             <div class="options">
                                 {% for i in context.range_1_to_5 %}
-                                <label><input type="radio" name="response_{{ context.form.title }}_{{ section.id }}_{{ question.id }}" value="{{ i }}"> {{ i }}</label>
+                                <label><input type="radio" name="response_{{ context.form.title }}_{{ section.id }}_{{ question.id }}" value="{{ i }}" required> {{ i }}</label>
                                 {% endfor %}
                             </div>
                         </div>
