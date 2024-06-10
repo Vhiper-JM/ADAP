@@ -32,7 +32,7 @@
                     <div class="flag" data-language="en">
                       <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded" alt="">
                     </div>
-                  </div>
+                </div>
                 <p class="advice-text text-shadow" data-section="FSign" data-value="Registro1">Are you a company? <a href="{% url 'Inicio_sesion:signup_business' %}" data-section="Fsign" data-value="registroc">You can register as a company</a></p>
                 <form class="form-row row" method="post">
                     {{ error_message }}
@@ -308,7 +308,7 @@
                         <label class="form-check-label" for="" data-section="FSign" data-value="Conditions">I have read and accept the Terms and Conditions</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input type="submit" name=""  value="Register" data-section="Fsign" data-value="Register" style="background-color: #55CC93;">
+                        <input class="form__button" type="submit" value="Register" data-section="Fsign" data-value="Register">
                     </div>
                 </form>
             </div>
