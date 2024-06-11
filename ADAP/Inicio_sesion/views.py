@@ -104,13 +104,7 @@ def signup(request):
         # Crear el usuario en Django
         user_custom_user = User.objects.create_user(username=email, email=email, password=password)
         
-        user = authenticate(username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('Formulario:companyView')  # Redirigir a la vista principal
-        else:
-            # Manejar el caso de autenticación fallida
-            return render(request, 'Inicio_sesion/signupuser.html', {'error_message': 'Error en la autenticación'})
+        return redirect('Inicio_sesion:signin')  # Redirigir a la página de inicio de sesión
 
 
 def signup_business(request):
@@ -146,18 +140,8 @@ def signup_business(request):
         # Crear un usuario asociado a la empresa (opcional)
         user_company = User.objects.create_user(username=email, email=email, password=password)
         
-        # Autenticar al usuario y redirigir a la vista principal
-        user = authenticate(username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('Formulario:companyView')  # Redirigir a la vista del formulario de empresa
-        else:
-            # Manejar el caso de autenticación fallida
-            return render(request, 'Inicio_sesion/sign_up-company.html', {'error_message': 'Error en la autenticación'})
+    return redirect('Inicio_sesion:signin')  # Redirigir a la página de inicio de sesión
 
 def signout(request):
-    """
-    Vista para cerrar sesión de un usuario.
-    """
     logout(request)  # Cierra la sesión actual del usuario
     return redirect('Inicio_sesion:index')  # Redirige a la página de inicio de sesión

@@ -23,6 +23,12 @@
         <div class="col-md-6 text-center" style="color: white;">
             <p data-section="header" data-value="contact-us">Contact us</p>
         </div>
+        <div class="col-md-6 text-end">
+            <form action="{% url 'Inicio_sesion:signout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" style="background-color: #43A941; color: white;">Logout</button>
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
