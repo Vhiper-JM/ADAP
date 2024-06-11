@@ -257,6 +257,8 @@ def createForm(request):
         selected_sections = request.POST.getlist(
             "selected_sections[]"
         )  # Obtener las secciones seleccionadas
+        # crear un selected_sections con todas las secciones
+        all_sections = Section.objects.all()
         
         
         #print("Selected Sections:", selected_sections)
@@ -326,11 +328,7 @@ def createForm(request):
         #print(f"Formulario creado: {form.title}, {form.company}, {form.start_date}, {form.end_date}, {form.sections.all()}, {form.authorized_employees.all()}")
 
         # Renderizar la plantilla HTML con los detalles del formulario creado
-        return render(
-            request,
-            "Formulario/tempFormView.html",
-            {"form": form},
-        )
+        return redirect('Formulario:companyView')
 
     # Logic to render the create form page if it is not a POST request or if the form is not valid
     return render(request, "Formulario/tempCreateForm.html")
