@@ -57,7 +57,7 @@
                             <label data-section="profile" data-value="country-residence">Country of residence:</label>
                             <span>{{ company_info.country }}</span>
                         </div>
-                        <form method="POST" action="{% url 'Formulario:editProfile' %}">
+                        <form method="get" action="{% url 'Formulario:editCompanyProfileView' %}">
                             {% csrf_token %}
                             <button type="submit" style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
                         </form>

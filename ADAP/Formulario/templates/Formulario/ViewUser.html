@@ -62,7 +62,10 @@
                         <div class="form-group">
                             <label for="position">Position in the company: {{ user_info.position }}</label>
                         </div>
-                        <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit Profile</button> 
+                        <form method="get" action="{% url 'Formulario:editUserProfileView' %}">
+                            {% csrf_token %}
+                            <button type="submit" style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
+                        </form>
                     </div>
                 </div>
             </div>
