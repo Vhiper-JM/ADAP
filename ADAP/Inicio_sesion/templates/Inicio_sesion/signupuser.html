@@ -33,7 +33,12 @@
                       <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded" alt="">
                     </div>
                 </div>
-                <p class="advice-text text-shadow" data-section="FSign" data-value="Registro1">Are you a company? <a href="{% url 'Inicio_sesion:signup_business' %}" data-section="Fsign" data-value="registroc">You can register as a company</a></p>
+                <div class="row">
+                    <div class="text-container col d-flex justify-content-space-between">
+                        <p class="advice-text" data-section="FSign" data-value="Registro1">Are you a company? You can register as a company: </p>
+                        <a href="{% url 'Inicio_sesion:signup_business' %}" data-section="Fsign" data-value="registroc">Here</a>
+                    </div>
+                </div>
                 <form class="form-row row" method="post">
                     {{ error_message }}
                     {% csrf_token %}
@@ -314,6 +319,6 @@
             </div>
         </div>
     </main>
+    <script src="{% static 'Inicio_sesion/js/language.js' %}"></script>
 </body>
-
 </html>

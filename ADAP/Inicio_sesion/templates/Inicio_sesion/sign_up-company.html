@@ -32,10 +32,11 @@
                       <img src="{% static 'Inicio_sesion/images/united-kingdom.png' %}" class="rounded" alt="">
                     </div>
                 </div>
-                <div class="row text-center">
-                    <p class="text-shadow" style="margin-top: 10px; font-size: smaller;" data-section="FSign" data-value="Registro2">Are you not a company? You can register as a user here: 
-                        <a href="{% url 'Inicio_sesion:signup' %}">Sign Up ADAP </a> 
-                    </p>
+                <div class="row">
+                    <div class="text-container col d-flex justify-content-space-between">
+                        <p class="advice-text text-shadow" data-section="FSign" data-value="Registro2">Are you not a company? You can register as a user: </p>
+                        <a href="{% url 'Inicio_sesion:signup' %}" data-section="Fsign" data-value="registroc">Here</a> 
+                    </div>
                 </div>    
                 <div class="form-row row">
                     <div class="form-container container">
@@ -174,5 +175,6 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'Inicio_sesion/js/language.js' %}"></script>
 </body>
 </html>
