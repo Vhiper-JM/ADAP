@@ -5,58 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Form</title>
 </head>
-<style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f9f9f9;
-    }
-
-    .container {
-      background-color: #fff;
-      padding: 30px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 400px;
-    }
-
-    h1 {
-      background-color: #34C759;
-      color: #fff;
-      padding: 10px;
-      border-radius: 8px 8px 0 0;
-      text-align: center;
-      font-weight: bold;
-      font-size: 24px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 18px;
-      color: #333;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
- 
-      </style>
 <body>
     <div style="padding: 10px; background-color: #f0f0f0;">
+        <h2>Debugging Info</h2>
+        <p>Email: {{ company_info.email }}</p>
+        <p>Company Name: {{ company_info.companyName }}</p>
 
     <h1>Create Form</h1>
     <form id="createForm" action="{% url 'Formulario:createForm' %}" method="POST">
@@ -70,6 +23,24 @@
         <label for="end_date">End Date:</label><br>
         <input type="date" id="end_date" name="end_date"><br>
         
+        <label>Select Sections:</label><br>
+        <input type="checkbox" id="section_1" name="selected_sections[]" value="1">
+        <label for="section_1">Contextual Performance</label><br>
+        
+        <input type="checkbox" id="section_2" name="selected_sections[]" value="2">
+        <label for="section_2">Counterproductive Performance</label><br>
+        
+        <input type="checkbox" id="section_3" name="selected_sections[]" value="3">
+        <label for="section_3">Task Performance</label><br>
+        
+        <input type="checkbox" id="section_4" name="selected_sections[]" value="4">
+        <label for="section_4">Behavioural Strategies</label><br>
+        
+        <input type="checkbox" id="section_5" name="selected_sections[]" value="5">
+        <label for="section_5">Constructive Thinking Strategies</label><br>
+
+        <input type="checkbox" id="section_5" name="selected_sections[]" value="6">
+        <label for="section_5">Reward Thinking Strategies</label><br>
         
         <!-- Campo oculto para los correos de los empleados -->
         <input type="hidden" id="employeeEmails" name="employee_emails">
@@ -77,6 +48,7 @@
         <input type="submit" value="Create Form">
     </form>
     
+    <button id="debugButton">Debug Info</button>
     
     <form id="emailForm" action="#" method="POST">
         <label for="newEmail">Add Email:</label><br>

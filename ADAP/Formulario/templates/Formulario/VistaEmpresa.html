@@ -14,116 +14,123 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    
-    <div class="row" style="background-color: #43A941; align-items: center;">
-        <div class="col-md-6">
-            <img src="{% static 'Formulario/images/Logo.png' %}" style="width: 30%;" class="float-start">
-        </div>
-        <div class="col-md-6 text-center" style="color: white;">
-            <p>Contactenos</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
-            <div class="text-center">
-                <div class="avatar-container">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 50px; border-radius: 50%;">
-                    <input type="file" class="text-center center-block file-upload" style="margin-left: 85px;">
-                    <div class="form-group">
-                        <label for="email" style="font-size: 30px; margin-top: 10px;">NOMBRE DE LA EMPRESA</label>
-                    </div>
-                </div>
-                <div class="tab-content" style="margin-top: 20px; margin-left: 50px; text-align: start;">
-                    <div class="tab-pane active" id="home">
-                        <div class="form-group">
-                            <label for="email">Fecha de fundación:</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="identification">Correo:</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="nationality">Teléfono:</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="country">País de residencia:</label>
-                        </div>
-                        <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Editar perfil</button> 
-                    </div>
-                </div>
+    <header class="container-fluid">
+        <div class="row" style="background-color: #43A941; align-items: center;">
+            <div class="col">
+                <img src="{% static 'Formulario/images/Logo.png' %}" style="width: 30%;" class="float-start">
+            </div>
+            <div class="col d-flex justify-content-end" style="color: white;">
+                <form action="{% url 'Inicio_sesion:signout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
             </div>
         </div>
-        <div class="col-md-8" >
-            <div class="container position-relative">
-                <div class="position-absolute top-0 end-0">
-                    <a href="VistaEmpresa.html">
-                        <img src="{% static 'Formulario/images/flag.png' %}" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
-                    </a>
-                    <a href="ViewCompany.html">
-                        <img src="{% static 'Formulario/images/united-kingdom.png' %}" class="rounded float-end" alt="" style="width: 5%;">
-                    </a>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 90px; margin-left: 50px; margin-right: 50px;">  
-                <div style="overflow-x: auto; width: 100%;">
-                    <h2>Empleados</h2>
-                    <table class="table" style="background-color: #F2F2F2;">
-                        <thead>
-                            <tr>
-                                <th>Nombres y Apellidos</th>
-                                <th>Cargo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    </header>
+    <main class="container-fluid">
 
-            <div class="row" style="margin-top: 70px; margin-left: 50px; margin-right: 50px;"> 
-                <div style="overflow-x: auto; width: 100%;">
-                    <h2>Evaluaciones Habilitadas</h2>
-                    <table class="table" style="background-color: #F2F2F2;">
-                        <thead>
-                            <tr>
-                                <th>Evaluación</th>
-                                <th>Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
+                <div class="text-center">
+                    <div class="avatar-container">
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 50px; border-radius: 50%;">
+                        <input type="file" class="text-center center-block file-upload" style="margin-left: 85px;">
+                        <div class="form-group">
+                            <label for="email" style="font-size: 30px; margin-top: 10px;">NOMBRE DE LA EMPRESA</label>
+                        </div>
+                    </div>
+                    <div class="tab-content" style="margin-top: 20px; margin-left: 50px; text-align: start;">
+                        <div class="tab-pane active" id="home">
+                            <div class="form-group">
+                                <label for="email">Fecha de fundación:</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="identification">Correo:</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Teléfono:</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">País de residencia:</label>
+                            </div>
+                            <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Editar perfil</button> 
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px; margin-right: 50px; text-align: center; float: right;">
-                <div>Crear una nueva</div>
-                <div>evaluación</div>
-            </button>            
+            <div class="col-md-8" >
+                <div class="container position-relative">
+                    <div class="position-absolute top-0 end-0">
+                        <a href="VistaEmpresa.html">
+                            <img src="{% static 'Formulario/images/flag.png' %}" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        </a>
+                        <a href="ViewCompany.html">
+                            <img src="{% static 'Formulario/images/united-kingdom.png' %}" class="rounded float-end" alt="" style="width: 5%;">
+                        </a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 90px; margin-left: 50px; margin-right: 50px;">  
+                    <div style="overflow-x: auto; width: 100%;">
+                        <h2>Empleados</h2>
+                        <table class="table" style="background-color: #F2F2F2;">
+                            <thead>
+                                <tr>
+                                    <th>Nombres y Apellidos</th>
+                                    <th>Cargo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="row" style="margin-top: 70px; margin-left: 50px; margin-right: 50px;"> 
+                    <div style="overflow-x: auto; width: 100%;">
+                        <h2>Evaluaciones Habilitadas</h2>
+                        <table class="table" style="background-color: #F2F2F2;">
+                            <thead>
+                                <tr>
+                                    <th>Evaluación</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px; margin-right: 50px; text-align: center; float: right;">
+                    <div>Crear una nueva</div>
+                    <div>evaluación</div>
+                </button>            
+            </div>
         </div>
-    </div>
+    </main>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

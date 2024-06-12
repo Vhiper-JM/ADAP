@@ -14,133 +14,134 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="row" style="background-color: #43A941; align-items: center;">
-        <div class="col-md-6">
-            <img src="{% static 'Formulario/images/Logo.png' %}" style="width: 30%;" class="float-start">
+    <header class="container-fluid">
+        <div class="row" style="background-color: #43A941; align-items: center;">
+            <div class="col">
+                <img src="{% static 'Formulario/images/Logo.png' %}" style="width: 30%;" class="float-start">
+            </div>
+            <div class="col d-flex justify-content-end" style="color: white;">
+                <form action="{% url 'Inicio_sesion:signout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6 text-center" style="color: white;">
-            <p>Contact Us</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <form action="{% url 'Inicio_sesion:signout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" style="background-color: #43A941; color: white;">Logout</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
-            <div class="text-center">
-                <div class="avatar-container">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 20px; border-radius: 50%;">
-                    <form method="POST" enctype="multipart/form-data" action="{% url 'Formulario:uploadProfilePicture' %}">
-                        {% csrf_token %}
-                        <input type="file" name="profile_picture" class="text-center center-block file-upload" style="margin-left: 85px;">
-                        <button type="submit" style="background-color: #43A941; margin-top: 10px;">Upload Profile Picture</button>
-                    </form>
-                    <div class="form-group">
-                        <label for="email" style="font-size: 30px; align-items: center;">{{ user_info.first_name }} {{ user_info.last_name }}</label>
-                    </div>
-                </div>
-                <div class="tab-content" style="margin-top: 10px; margin-left: 50px; text-align: start;">
-                    <div class="tab-pane active" id="home">
-                        <div class="form-group">
-                            <label for="email">Email: {{ user_info.email }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="identification">Identification: {{ user_info.identification }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="nationality">Nationality: {{ user_info.nationality }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender: {{ user_info.gender }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone: {{ user_info.phone }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Country of Residence: {{ user_info.country }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company: {{ user_info.company }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="position">Position in the company: {{ user_info.position }}</label>
-                        </div>
-                        <form method="get" action="{% url 'Formulario:editUserProfileView' %}">
+    </header>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
+                <div class="text-center">
+                    <div class="avatar-container">
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="margin-top: 20px; border-radius: 50%;">
+                        <form method="POST" enctype="multipart/form-data" action="{% url 'Formulario:uploadProfilePicture' %}">
                             {% csrf_token %}
-                            <button type="submit" style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
+                            <input type="file" name="profile_picture" class="text-center center-block file-upload" style="margin-left: 85px;">
+                            <button type="submit" style="background-color: #43A941; margin-top: 10px;">Upload Profile Picture</button>
                         </form>
+                        <div class="form-group">
+                            <label for="email" style="font-size: 30px; align-items: center;">{{ user_info.first_name }} {{ user_info.last_name }}</label>
+                        </div>
+                    </div>
+                    <div class="tab-content" style="margin-top: 10px; margin-left: 50px; text-align: start;">
+                        <div class="tab-pane active" id="home">
+                            <div class="form-group">
+                                <label for="email">Email: {{ user_info.email }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="identification">Identification: {{ user_info.identification }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Nationality: {{ user_info.nationality }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender: {{ user_info.gender }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone: {{ user_info.phone }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country of Residence: {{ user_info.country }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company: {{ user_info.company }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="position">Position in the company: {{ user_info.position }}</label>
+                            </div>
+                            <form method="get" action="{% url 'Formulario:editUserProfileView' %}">
+                                {% csrf_token %}
+                                <button type="submit" style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8" >
+                <div class="container position-relative">
+                    <div class="position-absolute top-0 end-0">
+                        <a href="VistaUsuario.html">
+                            <img src="{% static 'Formulario/images/flag.png' %}" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
+                        </a>
+                        <a href="ViewUser.html">
+                            <img src="{% static 'Formulario/images/united-kingdom.png' %}" class="rounded float-end" alt="" style="width: 5%;">
+                        </a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 100px; margin-left: 50px; margin-right: 50px;">  
+                    <div style="overflow-x: auto; width: 100%;">
+                        <h2>Pending Evaluations</h2>
+                        <table class="table" style="background-color: #F2F2F2;">
+                            <thead>
+                                <tr>
+                                    <th>Evaluation</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for form in user_info.forms %}
+                            <tr>
+                                <td>{{ form.title }}</td>
+                                <td>{{ form.end_date }}</td>
+                                <td>
+                                    <form action="{% url 'Formulario:userFormView' %}?form_title={{ form.title }}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" style="background-color: #43A941; color: white;">Access Form</button>
+                                    </form>
+                                </td>
+                            </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="row" style="margin-top: 100px; margin-left: 50px; margin-right: 50px;"> 
+                    <div style="overflow-x: auto; width: 100%;">
+                        <h2>Previous Evaluations</h2>
+                        <table class="table" style="background-color: #F2F2F2;">
+                            <thead>
+                                <tr>
+                                    <th>Evaluation</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for form in user_info.completed_forms %}
+                                    <tr>
+                                        <td>{{ form.title }}</td>
+                                        <td>{{ form.start_date }}</td>
+                                        <td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8" >
-            <div class="container position-relative">
-                <div class="position-absolute top-0 end-0">
-                    <a href="VistaUsuario.html">
-                        <img src="{% static 'Formulario/images/flag.png' %}" alt="" class="rounded float-end" style="width: 5%; margin-left: 15px; margin-right: 15px;">
-                    </a>
-                    <a href="ViewUser.html">
-                        <img src="{% static 'Formulario/images/united-kingdom.png' %}" class="rounded float-end" alt="" style="width: 5%;">
-                    </a>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 100px; margin-left: 50px; margin-right: 50px;">  
-                <div style="overflow-x: auto; width: 100%;">
-                    <h2>Pending Evaluations</h2>
-                    <table class="table" style="background-color: #F2F2F2;">
-                        <thead>
-                            <tr>
-                                <th>Evaluation</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for form in user_info.forms %}
-                        <tr>
-                            <td>{{ form.title }}</td>
-                            <td>{{ form.end_date }}</td>
-                            <td>
-                                <form action="{% url 'Formulario:userFormView' %}?form_title={{ form.title }}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" style="background-color: #43A941; color: white;">Access Form</button>
-                                </form>
-                            </td>
-                        </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 100px; margin-left: 50px; margin-right: 50px;"> 
-                <div style="overflow-x: auto; width: 100%;">
-                    <h2>Previous Evaluations</h2>
-                    <table class="table" style="background-color: #F2F2F2;">
-                        <thead>
-                            <tr>
-                                <th>Evaluation</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for form in user_info.completed_forms %}
-                                <tr>
-                                    <td>{{ form.title }}</td>
-                                    <td>{{ form.start_date }}</td>
-                                    <td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
