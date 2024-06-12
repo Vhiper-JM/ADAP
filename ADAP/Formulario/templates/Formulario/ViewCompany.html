@@ -23,6 +23,12 @@
         <div class="col-md-6 text-center" style="color: white;">
             <p data-section="header" data-value="contact-us">Contact us</p>
         </div>
+        <div class="col-md-6 text-end">
+            <form action="{% url 'Inicio_sesion:signout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" style="background-color: #43A941; color: white;">Logout</button>
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4 d-flex justify-content-center" style="background-color: #F2F2F2; text-align: center;">
@@ -40,7 +46,8 @@
                     </div>
                 </div>
                 <div class="tab-content" style="margin-top: 20px; margin-left: 50px; text-align: start;">
-                    <div class="tab-pane active" id="home">
+                    <div class="tab-pane ac
+                    ive" id="home">
                         <div class="form-group">
                             <label data-section="profile" data-value="foundation-date">Foundation date:</label>
                             <span>{{ company_info.foundationDate }}</span>
@@ -57,7 +64,7 @@
                             <label data-section="profile" data-value="country-residence">Country of residence:</label>
                             <span>{{ company_info.country }}</span>
                         </div>
-                        <form method="POST" action="{% url 'Formulario:editProfile' %}">
+                        <form method="get" action="{% url 'Formulario:editCompanyProfileView' %}">
                             {% csrf_token %}
                             <button type="submit" style="background-color: #43A941; margin-top: 20px; margin-bottom: 20px;">Edit profile</button> 
                         </form>

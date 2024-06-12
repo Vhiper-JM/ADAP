@@ -1,4 +1,5 @@
 import json
+from pyexpat.errors import messages
 from sqlite3 import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -6,7 +7,7 @@ from Inicio_sesion.models import CustomUser, Company
 from Formulario.models import Form, Section, FormSection
 from django.contrib.auth.models import User
 from .models import Form, Question, Response
-
+from Resultados.views import resultadosUsuarios
 
 
 
@@ -133,10 +134,97 @@ def companyView(request):
         return HttpResponse("Email not provided in session")
 
 
-def editProfile(request):
-    return render(request, "Formulario/tempEditProfile.html")
+def editUserProfileView(request):
+    email = request.session.get("user_email")
+    print(f"Email: {email}")
 
+    if email:
+        user_info = CustomUser.objects.get(email=email)
+        print(f"User Info: {user_info}")
 
+        if request.method == 'POST':
+            update_user_profile(user_info, request.POST)
+            return redirect('Formulario:userView')  # Redirige a la vista del usuario después de actualizar
+
+        formatted_date = user_info.birthday.strftime("%Y-%m-%d")        
+
+        user_info_dict = {
+            "first_name": user_info.first_name,
+            "last_name": user_info.last_name,
+            "identification": user_info.identification,
+            "gender": user_info.gender,
+            "nationality": user_info.nationality,
+            "country": user_info.country,
+            "birthday": formatted_date,
+            "email": user_info.email,
+            "company": user_info.company.companyName,
+            "position": user_info.position,
+            "phone": user_info.phone,
+            "isEntrepreneur": user_info.is_entrepreneur,
+            "entrepreneurship": user_info.entrepreneurship,
+        }
+        return render(request, "Formulario/editUserInfo.html", {"user_info": user_info_dict})
+    else:
+        return HttpResponse("Email not provided in session")
+
+def update_user_profile(user_info, data):
+    user_info.first_name = data.get("first_name")
+    user_info.last_name = data.get("last_name")
+    user_info.identification = data.get("identification")
+    user_info.gender = data.get("gender")
+    user_info.nationality = data.get("nationality")
+    user_info.country = data.get("country")
+    user_info.birthday = data.get("birthday")
+    user_info.position = data.get("position")
+    user_info.phone = data.get("phone")
+    user_info.is_entrepreneur = data.get("isEntrepreneur") == "True"
+    user_info.entrepreneurship = data.get("entrepreneurship") if user_info.is_entrepreneur else ""
+
+    user_info.save()
+    
+
+def editCompanyProfileView(request):
+    email = request.session.get("user_email")
+    print(f"Email: {email}")
+
+    if email:
+        try:
+            company_info = Company.objects.get(email=email)
+            print(f"Company Info: {company_info}")
+
+            if request.method == 'POST':
+                update_company_profile(company_info, request.POST)
+                return redirect('Formulario:companyView')  # Redirige a la vista de la compañía después de actualizar
+
+            formatted_date = company_info.foundationDate.strftime("%Y-%m-%d")
+
+            company_info_dict = {
+                "companyName": company_info.companyName,
+                "dateFoundation": formatted_date,
+                "email": company_info.email,
+                "NIT": company_info.NIT,
+                "phone": company_info.phone,                
+                "country": company_info.country,
+            }
+            return render(request, "Formulario/editCompanyInfo.html", {"company_info": company_info_dict})
+        except Company.DoesNotExist:
+            return HttpResponse("Error retrieving company information")
+    else:
+        return HttpResponse("Email not provided in session")
+
+def update_company_profile(company_info, data):
+    company_info.companyName = data.get("companyName")
+    company_info.foundationDate = data.get("dateFoundation")
+    company_info.phone = data.get("phone")
+    company_info.NIT = data.get("NIT")
+    company_info.country = data.get("country")
+
+    company_info.save()
+
+    # If there's additional business logic needed when company info is updated, handle it here.
+    # For example, if you need to log this update or trigger other updates.
+    
+    
 def uploadProfilePicture(request):
     return HttpResponse("You are trying to upload a picture")
 
@@ -166,12 +254,16 @@ def createForm(request):
         #print("Start Date:", start_date)
         end_date = request.POST.get("end_date")
         #print("End Date:", end_date)
-        selected_sections = request.POST.getlist(
-            "selected_sections[]"
-        )  # Obtener las secciones seleccionadas
+        selected_sections = Section.objects.filter(id__in=[1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14])
+        # selected_sections = request.POST.getlist(
+        #     "selected_sections[]"
+        # )  # Obtener las secciones seleccionadas
+
+        # crear un selected_sections con todas las secciones
+        all_sections = Section.objects.all()
         
         
-        #print("Selected Sections:", selected_sections)
+        print("Selected Sections:", selected_sections)
         django_user = request.user  # Assuming request.user is the Django user
         # Obtener la compañía autenticada actualmente
         company = get_object_or_404(Company, email=django_user.email)
@@ -238,11 +330,7 @@ def createForm(request):
         #print(f"Formulario creado: {form.title}, {form.company}, {form.start_date}, {form.end_date}, {form.sections.all()}, {form.authorized_employees.all()}")
 
         # Renderizar la plantilla HTML con los detalles del formulario creado
-        return render(
-            request,
-            "Formulario/tempFormView.html",
-            {"form": form},
-        )
+        return redirect('Formulario:companyView')
 
     # Logic to render the create form page if it is not a POST request or if the form is not valid
     return render(request, "Formulario/tempCreateForm.html")
@@ -289,6 +377,5 @@ def submitForm(request):
                     question=question,
                     answer=value
                 )
+        resultadosUsuarios(request)
         return redirect('Formulario:userView')
-
-        
