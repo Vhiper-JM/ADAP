@@ -57,6 +57,15 @@
   cursor: pointer;
 }
 
+.advice-text {
+  margin: 0;
+}
+
+.text-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /* Media Queries */
 
 @media (max-width: 768px) {
