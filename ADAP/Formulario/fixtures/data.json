@@ -332,7 +332,7 @@
     "model": "Formulario.question",
     "pk": 29,
     "fields": {
-      "description": "Pienso en mis propias creencias y suposiciones cada vez que encuentro una situación difícil",
+      "description": "Expreso y evalúo abiertamente mis propias suposiciones cuando tengo un desacuerdo con otra persona",
       "section": 5
     }
   },
